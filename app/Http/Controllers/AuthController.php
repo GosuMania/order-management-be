@@ -35,7 +35,7 @@ class AuthController extends Controller {
             return response()->json($validator->errors(), 422);
         }
 
-        if (! $token = auth()->attempt($validator->validated())) {
+        if (! $token = auth('api')->attempt($validator->validated())) {
             return response()->json(['error' => 'Either email or password is wrong.'], 401);
         }
 
