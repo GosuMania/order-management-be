@@ -5,8 +5,9 @@ use Closure;
 class CORS {
 
     public function handle(Request $request, Closure $next) {
-        header('Acess-Control-Allow-Origin: *');
-        header('Acess-Control-Allow-Origin: Content-type, X-Auth-Token, Authorization, Origin');
+        header('Access-Control-Allow-Origin:  *');
+        header('Access-Control-Allow-Methods:  POST, GET, OPTIONS, PUT, PATCH, DELETE');
+        header('Access-Control-Allow-Headers: Accept, Content-Type, X-Auth-Token, Origin, Authorization');
         return $next($request);
     }
 }
