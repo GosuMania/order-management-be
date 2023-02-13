@@ -31,7 +31,7 @@ class CustomerController extends Controller
                     'provincia' => $request->provincia,
                     'telefono' => $request->telefono,
                     'email' => $request->email,
-                    'indirizzo_dm' => $request->destinazioneMerce->indirizzo,
+                    'indirizzo_dm' => $request->destinazioneMerce['indirizzo'],
                     'cap_dm' => $request->destinazioneMerce->cap,
                     'localita_dm' => $request->destinazioneMerce->localita,
                     'provincia_dm' => $request->destinazioneMerce->provincia,
