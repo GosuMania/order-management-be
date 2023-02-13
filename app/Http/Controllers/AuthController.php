@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Validator;
 use App\User;
+use App\Resources\User\User as UserResource;
 
 
 class AuthController extends Controller {
@@ -18,6 +19,11 @@ class AuthController extends Controller {
      */
     public function __construct() {
         $this->middleware('auth:api', ['except' => ['login', 'register']]);
+    }
+
+    public function getAll() {
+        return UserResource::collection(User::orderBy('ragione_sociale', 'ASC')->get());
+
     }
 
     /**

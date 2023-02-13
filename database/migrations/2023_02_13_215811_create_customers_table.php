@@ -27,11 +27,11 @@ return new class extends Migration
             $table->string('paese');
             $table->string('telefono');
             $table->string('email');
-            $table->string('indirizzo_dm');
-            $table->string('cap_dm');
-            $table->string('localita_dm');
-            $table->string('provincia_dm');
-            $table->string('paese_dm');
+            $table->string('indirizzo_dm')->nullable();
+            $table->string('cap_dm')->nullable();
+            $table->string('localita_dm')->nullable();
+            $table->string('provincia_dm')->nullable();
+            $table->string('paese_dm')->nullable();
             $table->bigInteger('id_agente_riferimento')->unsigned();
             $table->dateTime('date');
         });

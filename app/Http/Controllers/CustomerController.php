@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Resources\Customer\Customer as CustomerResource;
+use App\Resources\Customer\User as CustomerResource;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 Use Carbon\Carbon;
