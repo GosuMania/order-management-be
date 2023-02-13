@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\InEvidence;
+namespace App\Http\Resources\Customer;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 class Customer extends JsonResource
