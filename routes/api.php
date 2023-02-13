@@ -18,8 +18,8 @@ Route::group([
 });
 
 Route::controller(CustomerController::class)->prefix('customer')->group(function () {
-    Route::get('get-all', 'getAll')->middleware('auth');; // restituisce la lista
-    Route::post('create-or-update', 'createOrUpdate')->middleware('auth'); // crea o modifica
-    Route::get('get-by-id/{id}', 'getById')->middleware('auth');; // restituisce una specifica
-    Route::delete('delete/{id}', 'delete')->middleware('auth'); // elimina
+    Route::get('get-all', 'getAll'); // restituisce la lista
+    Route::post('create-or-update', 'createOrUpdate'); // crea o modifica
+    Route::get('get-by-id/{id}', 'getById'); // restituisce una specifica
+    Route::delete('delete/{id}', 'delete'); // elimina
 });
