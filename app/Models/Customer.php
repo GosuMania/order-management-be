@@ -21,6 +21,7 @@ class Customer extends Model
         'cap',
         'localita',
         'provincia',
+        'paese',
         'telefono',
         'email',
         'indirizzo_dm',
