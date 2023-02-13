@@ -22,7 +22,7 @@ class AuthController extends Controller {
     }
 
     public function getAll() {
-        return UserResource::collection(User::orderBy('ragione_sociale', 'ASC')->get());
+        return UserResource::collection(User::orderBy('id', 'ASC')->get());
 
     }
 
