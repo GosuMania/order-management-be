@@ -3,7 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-
+use App\Http\Controllers\CustomerController;
 
 
 Route::group([
@@ -15,4 +15,11 @@ Route::group([
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::get('user-profile', [AuthController::class, 'userProfile']);
+});
+
+Route::controller(CustomerController::class)->prefix('customer')->group(function () {
+    Route::get('get-all', 'getAll')->middleware('auth');; // restituisce la lista
+    Route::post('create-or-update', 'createOrUpdate')->middleware('auth'); // crea o modifica
+    Route::get('get-by-id/{id}', 'getById')->middleware('auth');; // restituisce una specifica
+    Route::delete('delete/{id}', 'delete')->middleware('auth'); // elimina
 });
