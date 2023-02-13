@@ -12,7 +12,7 @@ class CustomerController extends Controller
 
     public function getAll()
     {
-        return CustomerResource::collection(Customer::orderBy('position', 'ASC')->orderBy('date', 'DESC')->get());
+        return CustomerResource::collection(Customer::orderBy('ragione_sociale', 'ASC')->get());
     }
 
     public function createOrUpdate(Request $request)
