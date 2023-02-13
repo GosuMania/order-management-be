@@ -21,9 +21,9 @@ class CustomerController extends Controller
                 ['id' => $request->id],
                 [
                     'ragione_sociale' => $request->ragioneSociale,
-                    'piva' => $request->codice_fiscale,
-                    'codiceFiscale' => $request->link,
-                    'codiceSdi' => $request->codice_sdi,
+                    'partiva_iva' => $request->piva,
+                    'codice_fiscale' => $request->codiceFiscale,
+                    'codice_sdi' => $request->codiceSdi,
                     'pec' => $request->pec,
                     'indirizzo' => $request->indirizzo,
                     'cap' => $request->cap,
