@@ -24,6 +24,7 @@ class Customer extends JsonResource
             'cap' => $this->cap,
             'localita' => $this->localita,
             'provincia' => $this->provincia,
+            'paese' => $this->paese,
             'telefono' => $this->telefono,
             'email' => $this->email,
             'destinazioneMerce' => [

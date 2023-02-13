@@ -29,6 +29,7 @@ class CustomerController extends Controller
                     'cap' => $request->cap,
                     'localita' => $request->localita,
                     'provincia' => $request->provincia,
+                    'paese' => $request->paese,
                     'telefono' => $request->telefono,
                     'email' => $request->email,
                     'indirizzo_dm' => $request->destinazioneMerce['indirizzo'],
