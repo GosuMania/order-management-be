@@ -18,9 +18,9 @@ class CustomerController extends Controller
     public function getAllWithPagination($page)
     {
         $obj = Customer::paginate($page);
-        $customers = CustomerResource::collection($obj['data'])->get();
+        // $customers = CustomerResource::collection($obj['data'])->get();
         return response()->json([
-            'customers' => $customers,
+            'customers' => $obj['data'],
             'currentPage' => $obj['current_page'],
             'perPage' => $obj['per_page'],
             'total' => $obj['total'],
