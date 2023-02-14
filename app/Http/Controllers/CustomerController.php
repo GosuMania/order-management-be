@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Resources\Customer\Customer as CustomerResource;
+use App\Resources\Customer\CustomerPagination as CustomerPaginationResource;
+
+
 use App\Models\Customer;
 use Illuminate\Http\Request;
 Use Carbon\Carbon;
@@ -17,17 +20,7 @@ class CustomerController extends Controller
 
     public function getAllWithPagination($page)
     {
-        $obj = Customer::paginate($page)->get();
-        // $objDecode = json_decode($obj, false);
-        // $customers = CustomerResource::collection($obj['data'])->get();
-        return response()->json([
-            'obj' => $obj,
-            'customers' => $obj->data,
-            // 'currentPage' => $obj['current_page'],
-            // 'perPage' => $obj['per_page'],
-            // 'total' => $obj['total'],
-            // 'lastPage' => $obj['last_page'],
-        ], 200);
+        return CustomerPaginationResource::collection(Customer::paginate($page)->get());
     }
 
     public function createOrUpdate(Request $request)
