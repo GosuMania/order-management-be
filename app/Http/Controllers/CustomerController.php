@@ -21,7 +21,7 @@ class CustomerController extends Controller
         // $customers = CustomerResource::collection($obj['data'])->get();
         return response()->json([
             'obj' => $obj,
-            'customers' => $obj['data'],
+            'customers' => $obj->data,
             'currentPage' => $obj['current_page'],
             'perPage' => $obj['per_page'],
             'total' => $obj['total'],
