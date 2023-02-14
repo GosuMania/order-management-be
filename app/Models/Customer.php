@@ -30,6 +30,7 @@ class Customer extends Model
         'provincia_dm',
         'paese_dm',
         'id_agente_riferimento',
+        'username_agente_riferimento',
         'date'
     ];
 

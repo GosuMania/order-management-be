@@ -33,6 +33,7 @@ return new class extends Migration
             $table->string('provincia_dm')->nullable();
             $table->string('paese_dm')->nullable();
             $table->bigInteger('id_agente_riferimento')->unsigned();
+            $table->string('username_agente_riferimento');
             $table->dateTime('date');
         });
 

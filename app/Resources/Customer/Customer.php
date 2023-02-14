@@ -35,6 +35,7 @@ class Customer extends JsonResource
                 'paese' => $this->paese_dm
             ],
             'idAgenteRiferimento' => $this->id_agente_riferimento,
+            'usernameAgenteRiferimento' => $this->username_agente_riferimento,
             'date' => $this->date,
 
         ];

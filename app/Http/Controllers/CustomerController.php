@@ -38,8 +38,8 @@ class CustomerController extends Controller
                     'provincia_dm' => $request->destinazioneMerce['provincia'],
                     'paese_dm' => $request->destinazioneMerce['paese'],
                     'id_agente_riferimento' => $request->idAgenteRiferimento,
+                    'username_agente_riferimento' => $request->usernameAgenteRiferimento,
                     'date' => Carbon::now(),
-
                 ]
             );
             return response()->json(['data' => new CustomerResource($object)], 200);
