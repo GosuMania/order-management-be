@@ -15,6 +15,11 @@ class CustomerController extends Controller
         return CustomerResource::collection(Customer::orderBy('ragione_sociale', 'ASC')->get());
     }
 
+    public function getAllWithPagination($page)
+    {
+        return CustomerResource::collection(Customer::paginate($page)->orderBy('ragione_sociale', 'ASC')->get());
+    }
+
     public function createOrUpdate(Request $request)
     {
             $object = Customer::updateOrCreate(

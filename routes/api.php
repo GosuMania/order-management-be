@@ -16,6 +16,7 @@ Route::group([
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::get('user-profile', [AuthController::class, 'userProfile']);
     Route::get('get-all', [AuthController::class, 'getAll']);
+    Route::get('get-all-with-pagination/{page}', [AuthController::class, 'getAllWithPagination']);
 });
 
 Route::controller(CustomerController::class)->prefix('customer')->group(function () {
