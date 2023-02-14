@@ -20,7 +20,7 @@ class CustomerController extends Controller
         $obj = Customer::paginate($page);
         // $customers = CustomerResource::collection($obj->data)->get();
         return response()->json([
-            'customers' => new CustomerResource($obj->data),
+            'customers' => new CustomerResource($obj['data']),
             'currentPage' => $obj->current_page,
             'perPage' => $obj->per_page,
             'total' => $obj->total,
