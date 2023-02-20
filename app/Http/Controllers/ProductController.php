@@ -13,7 +13,7 @@ class ProductController extends Controller
 
     public function getAll()
     {
-        return ProductResource::collection(Product::orderBy('ragione_sociale', 'ASC')->get());
+        return ProductResource::collection(Product::orderBy('codice_articolo', 'ASC')->get());
     }
 
     public function getAllWithPagination($orderBy, $ascDesc, $perPage, $page)
