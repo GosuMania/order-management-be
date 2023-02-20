@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ColorController;
+use App\Http\Controllers\ClothingSizeController;
 
 
 Route::group([
@@ -37,5 +38,9 @@ Route::controller(ProductController::class)->prefix('product')->group(function (
 });
 
 Route::controller(ColorController::class)->prefix('color')->group(function () {
+    Route::get('get-all', 'getAll'); // restituisce la lista
+});
+
+Route::controller(ClothingSizeController::class)->prefix('clothing-size')->group(function () {
     Route::get('get-all', 'getAll'); // restituisce la lista
 });
