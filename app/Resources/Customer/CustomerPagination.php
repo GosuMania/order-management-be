@@ -21,7 +21,7 @@ class CustomerPagination extends JsonResource
             'perPage' => $this->per_page,
             'total' => $this->total,
             'lastPage' => $this->last_page,
-            'customers' => CustomerResource::collection($variantItems)
+            // 'customers' => CustomerResource::collection($variantItems)
         ];
     }
 }
