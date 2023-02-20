@@ -34,3 +34,7 @@ Route::controller(ProductController::class)->prefix('product')->group(function (
     Route::delete('delete/{id}', 'delete'); // elimina
     Route::get('get-all-with-pagination/{orderBy}/{ascDesc}/{perPage}/{page}', 'getAllWithPagination');
 });
+
+Route::controller(ColorController::class)->prefix('color')->group(function () {
+    Route::get('get-all', 'getAll'); // restituisce la lista
+});
