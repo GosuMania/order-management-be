@@ -21,9 +21,7 @@ class CustomerPagination extends JsonResource
             'perPage' => $this->per_page,
             'total' => $this->total,
             'lastPage' => $this->last_page,
-            'customers' => [
-                new CustomerResource($this->data)
-            ]
+            'customers' => $this->data
         ];
     }
 }
