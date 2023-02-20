@@ -23,5 +23,5 @@ Route::controller(CustomerController::class)->prefix('customer')->group(function
     Route::post('create-or-update', 'createOrUpdate'); // crea o modifica
     Route::get('get-by-id/{id}', 'getById'); // restituisce una specifica
     Route::delete('delete/{id}', 'delete'); // elimina
-    Route::get('get-all-with-pagination/{perPage}/{page}', 'getAllWithPagination');
+    Route::get('get-all-with-pagination/{orderBy}/{ascDesc}/{perPage}/{page}', 'getAllWithPagination');
 });
