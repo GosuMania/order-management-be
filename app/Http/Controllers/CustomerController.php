@@ -20,7 +20,7 @@ class CustomerController extends Controller
 
     public function getAllWithPagination($page)
     {
-        return CustomerPaginationResource::collection(Customer::paginate($page));
+        return CustomerPaginationResource::collection(Customer::paginate($page)->get());
     }
 
     public function createOrUpdate(Request $request)
