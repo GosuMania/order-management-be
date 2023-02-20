@@ -14,10 +14,10 @@ class CustomerPagination extends JsonResource
     public function toArray($request)
     {
         return [
-            'currentPage' => $this->current_page,
-            'perPage' => $this->per_page,
-            'total' => $this->total,
-            'lastPage' => $this->last_page,
+            // 'currentPage' => $this->current_page,
+            // 'perPage' => $this->per_page,
+            // 'total' => $this->total,
+            // 'lastPage' => $this->last_page,
             'data' => [
                 'id' => $this->id,
                 'ragioneSociale' => $this->ragione_sociale,
@@ -43,8 +43,6 @@ class CustomerPagination extends JsonResource
                 'usernameAgenteRiferimento' => $this->username_agente_riferimento,
                 'date' => $this->date,
             ],
-
-
         ];
     }
 }
