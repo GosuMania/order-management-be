@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\ProductController;
 
 
 Route::group([
@@ -19,6 +20,14 @@ Route::group([
 });
 
 Route::controller(CustomerController::class)->prefix('customer')->group(function () {
+    Route::get('get-all', 'getAll'); // restituisce la lista
+    Route::post('create-or-update', 'createOrUpdate'); // crea o modifica
+    Route::get('get-by-id/{id}', 'getById'); // restituisce una specifica
+    Route::delete('delete/{id}', 'delete'); // elimina
+    Route::get('get-all-with-pagination/{orderBy}/{ascDesc}/{perPage}/{page}', 'getAllWithPagination');
+});
+
+Route::controller(ProductController::class)->prefix('product')->group(function () {
     Route::get('get-all', 'getAll'); // restituisce la lista
     Route::post('create-or-update', 'createOrUpdate'); // crea o modifica
     Route::get('get-by-id/{id}', 'getById'); // restituisce una specifica
