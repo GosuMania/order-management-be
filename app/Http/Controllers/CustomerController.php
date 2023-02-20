@@ -18,9 +18,9 @@ class CustomerController extends Controller
         return CustomerResource::collection(Customer::orderBy('ragione_sociale', 'ASC')->get());
     }
 
-    public function getAllWithPagination($page)
+    public function getAllWithPagination($i, $page)
     {
-        return CustomerResource::collection(Customer::paginate($page));
+        return CustomerResource::collection(Customer::paginate($i)->page($page));
     }
 
     public function createOrUpdate(Request $request)
