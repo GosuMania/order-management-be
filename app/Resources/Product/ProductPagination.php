@@ -16,8 +16,14 @@ class ProductPagination extends JsonResource
         return [
             'data' => [
                 'id' => $this->id,
-                'colore' => $this->colore,
-                'codice' => $this->codice,
+                'fornitore' => $this->fornitore,
+                'codiceArticolo' => $this->codice_articolo,
+                'descrizioneArticolo' => $this->descrizione_articolo,
+                'taglia' => $this->taglia,
+                'idColore' => $this->id_colore,
+                'prezzo' => $this->prezzo,
+                'quantitaMagazzino' => $this->quantita_magazzino,
+                'quantitaDisponibile' => $this->quantita_disponibile,
                 'date' => $this->date,
             ],
         ];
