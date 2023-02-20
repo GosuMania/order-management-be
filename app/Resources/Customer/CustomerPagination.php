@@ -2,13 +2,16 @@
 
 namespace App\Resources\Customer;
 
+use App\Resources\Customer\Customer as CustomerResource;
+
 use Illuminate\Http\Resources\Json\JsonResource;
+
 class CustomerPagination extends JsonResource
 {
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
     public function toArray($request)
@@ -18,33 +21,7 @@ class CustomerPagination extends JsonResource
             'perPage' => $this->per_page,
             'total' => $this->total,
             'lastPage' => $this->last_page,
-            'customers' => [
-                'id' => $this->id,
-                'ragioneSociale' => $this->ragione_sociale,
-                'piva' => $this->partiva_iva,
-                'codiceFiscale' => $this->codice_fiscale,
-                'codiceSdi' => $this->codice_sdi,
-                'pec' => $this->pec,
-                'indirizzo' =>  $this->indirizzo,
-                'cap' => $this->cap,
-                'localita' => $this->localita,
-                'provincia' => $this->provincia,
-                'paese' => $this->paese,
-                'telefono' => $this->telefono,
-                'email' => $this->email,
-                'destinazioneMerce' => [
-                    'indirizzo' => $this->indirizzo_dm,
-                    'cap' =>  $this->cap_dm,
-                    'localita' => $this->localita_dm,
-                    'provincia' => $this->provincia_dm,
-                    'paese' => $this->paese_dm
-                ],
-                'idAgenteRiferimento' => $this->id_agente_riferimento,
-                'usernameAgenteRiferimento' => $this->username_agente_riferimento,
-                'date' => $this->date,
-            ],
-
-
+            'customers' => new CustomerResource[]
         ];
     }
 }
