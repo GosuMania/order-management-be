@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Resources\Product;
+namespace App\Resources\ProductType;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class Product extends JsonResource
+class ProductType extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -19,11 +19,11 @@ class Product extends JsonResource
             'fornitore' => $this->fornitore,
             'codiceArticolo' => $this->codice_articolo,
             'descrizioneArticolo' => $this->descrizione_articolo,
-            'taglia' => $this->taglia,
-            'idColore' => $this->id_colore,
+            // 'taglia' => $this->taglia,
+            // 'idColore' => $this->id_colore,
             'prezzo' => $this->prezzo,
-            'quantitaMagazzino' => $this->quantita_magazzino,
-            'quantitaDisponibile' => $this->quantita_disponibile,
+            // 'quantitaMagazzino' => $this->quantita_magazzino,
+            // 'quantitaDisponibile' => $this->quantita_disponibile,
             'date' => $this->date,
         ];
     }

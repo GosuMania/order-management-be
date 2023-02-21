@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Resources\ClothingSize;
+namespace App\Resources\Size;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-class ClothingSize extends JsonResource
+class Size extends JsonResource
 {
     /**
      * Transform the resource into an array.
