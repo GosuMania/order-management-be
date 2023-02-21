@@ -23,7 +23,7 @@ return new class extends Migration
             $table->dateTime('date');
         });
 
-        Schema::table('products', function ($table) {
+        Schema::table('product_types', function ($table) {
             $table->foreign('id_provider')->references('id')->on('providers')->onUpdate('cascade')->onDelete('cascade');
         });
     }
