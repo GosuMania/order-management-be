@@ -2,28 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
+use App\Models\ProductVariant;
 use App\Http\Controllers\Controller;
-use App\Resources\ProductType\ProductType as ProductResource;
+use App\Resources\Product\Product as ProductResource;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-class TypeProductController extends Controller
+class ProductTypeController extends Controller
 {
 
     public function getAll()
     {
-        return ProductResource::collection(Product::orderBy('codice_articolo', 'ASC')->get());
+        return ProductResource::collection(ProductVariant::orderBy('codice_articolo', 'ASC')->get());
     }
 
     public function getAllWithPagination($orderBy, $ascDesc, $perPage, $page)
     {
-        return ProductResource::collection(Product::orderBy($orderBy, $ascDesc)->paginate($perPage, ['*'], 'page', $page));
+        return ProductResource::collection(ProductVariant::orderBy($orderBy, $ascDesc)->paginate($perPage, ['*'], 'page', $page));
     }
 
     public function createOrUpdate(Request $request)
     {
-        $object = Product::updateOrCreate(
+        $object = ProductVariant::updateOrCreate(
             ['id' => $request->id],
             [
                 'immagine' => $request->immagine,
@@ -43,7 +43,7 @@ class TypeProductController extends Controller
 
     public function getById($id)
     {
-        return new ProductResource(Product::findOrFail($id));
+        return new ProductResource(ProductVariant::findOrFail($id));
     }
 
     public function delete($id)
@@ -52,7 +52,7 @@ class TypeProductController extends Controller
         if ($user->subscription_level < 4) {
             return response()->json(['message' => 'Unauthorized'], 401);
         } else {
-            return Product::where('id', $id)->delete();
+            return ProductVariant::where('id', $id)->delete();
         }
 
     }

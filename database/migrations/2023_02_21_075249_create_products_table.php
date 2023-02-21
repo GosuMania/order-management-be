@@ -15,24 +15,22 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('id_provider')->unsigned();
             $table->bigInteger('id_product_type')->unsigned();
-            $table->bigInteger('id_color')->unsigned();
-            $table->bigInteger('id_size')->unsigned();
-            $table->integer('stock')->default(0);
+            $table->string('immagine');
+            $table->string('codice_articolo');
+            $table->string('descrizione_articolo');
+            $table->string('prezzo');
             $table->dateTime('date');
         });
-
         Schema::table('products', function ($table) {
-            $table->foreign('id_product_type')->references('id')->on('product_types')->onUpdate('cascade');
+            $table->foreign('id_provider')->references('id')->on('providers')->onUpdate('cascade')->onDelete('cascade');
         });
 
         Schema::table('products', function ($table) {
-            $table->foreign('id_color')->references('id')->on('colors')->onUpdate('cascade');
+            $table->foreign('id_product_type')->references('id')->on('product_types')->onUpdate('cascade')->onDelete('cascade');
         });
 
-        Schema::table('products', function ($table) {
-            $table->foreign('id_size')->references('id')->on('sizes')->onUpdate('cascade');
-        });
     }
 
     /**

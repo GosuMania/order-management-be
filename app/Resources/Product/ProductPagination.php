@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Resources\ProductType;
+namespace App\Resources\Product;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-class ProductTypePagination extends JsonResource
+class ProductPagination extends JsonResource
 {
     /**
      * Transform the resource into an array.
