@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Size;
+use App\Models\ClothingSize;
 use App\Http\Controllers\Controller;
-use App\Resources\Size\Size as ClothingSizeResource;
+use App\Resources\ClothingSize\ClothingSize as ClothingSizeResource;
 use Illuminate\Http\Request;
 
 class ClothingSizeController extends Controller
 {
     public function getAll()
     {
-        return ClothingSizeResource::collection(Size::orderBy('id', 'ASC')->get());
+        return ClothingSizeResource::collection(ClothingSize::orderBy('id', 'ASC')->get());
     }
 }
