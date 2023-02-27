@@ -5,18 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class TypeProduct extends Model
+class ProductType extends Model
 {
     use HasFactory;
 
     public $timestamps = false;
 
     protected $fillable = [
-        'immagine',
-        'fornitore',
-        'codice_articolo',
-        'descrizione_articolo',
-        'prezzo',
-        'date'
+        'type'
     ];
 }

@@ -8,6 +8,7 @@ use App\Http\Controllers\ProductVariantController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\ClothingSizeController;
 use App\Http\Controllers\ProviderController;
+use App\Http\Controllers\ProductTypeController;
 
 
 Route::group([
@@ -47,6 +48,14 @@ Route::controller(ClothingSizeController::class)->prefix('clothing-size')->group
 });
 
 Route::controller(ProviderController::class)->prefix('provider')->group(function () {
+    Route::get('get-all', 'getAll'); // restituisce la lista
+    Route::post('create-or-update', 'createOrUpdate'); // crea o modifica
+    Route::get('get-by-id/{id}', 'getById'); // restituisce una specifica
+    Route::delete('delete/{id}', 'delete'); // elimina
+    Route::get('get-all-with-pagination/{orderBy}/{ascDesc}/{perPage}/{page}', 'getAllWithPagination');
+});
+
+Route::controller(ProductTypeController::class)->prefix('product-type')->group(function () {
     Route::get('get-all', 'getAll'); // restituisce la lista
     Route::post('create-or-update', 'createOrUpdate'); // crea o modifica
     Route::get('get-by-id/{id}', 'getById'); // restituisce una specifica
