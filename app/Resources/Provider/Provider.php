@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Resources\Color;
+namespace App\Resources\Provider;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 class Provider extends JsonResource
