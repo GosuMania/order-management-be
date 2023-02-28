@@ -7,6 +7,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProductVariantController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\ClothingSizeController;
+use App\Http\Controllers\ShoeSizeController;
 use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\ProductTypeController;
 
@@ -44,6 +45,10 @@ Route::controller(ColorController::class)->prefix('color')->group(function () {
 });
 
 Route::controller(ClothingSizeController::class)->prefix('clothing-size')->group(function () {
+    Route::get('get-all', 'getAll'); // restituisce la lista
+});
+
+Route::controller(ShoeSizeController::class)->prefix('shoe-size')->group(function () {
     Route::get('get-all', 'getAll'); // restituisce la lista
 });
 
