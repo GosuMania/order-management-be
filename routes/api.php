@@ -10,6 +10,7 @@ use App\Http\Controllers\ClothingSizeController;
 use App\Http\Controllers\ShoeSizeController;
 use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\ProductTypeController;
+use App\Http\Controllers\ImageProductController;
 
 
 Route::group([
@@ -67,3 +68,8 @@ Route::controller(ProductTypeController::class)->prefix('product-type')->group(f
     Route::delete('delete/{id}', 'delete'); // elimina
     Route::get('get-all-with-pagination/{orderBy}/{ascDesc}/{perPage}/{page}', 'getAllWithPagination');
 });
+
+Route::controller(ImageProductController::class)->prefix('image')->group(function () {
+    Route::post('upload', 'upload'); // restituisce la lista
+});
+
