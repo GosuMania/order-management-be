@@ -20,7 +20,7 @@ class ImageProductController extends Controller
                     '', Carbon::now()->timestamp . '.' . $image->getClientOriginalExtension(), 'images'
                 );
                 ImageProduct::create([
-                    'image_link' => env('APP_URL') . '/images/' . $path,
+                    'link' => env('APP_URL') . '/images/' . $path,
                 ]);
                 return response()->json(env('APP_URL') . '/images/' . $path, 200, [], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
             } catch (Exception $e) {
