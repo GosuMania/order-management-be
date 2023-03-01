@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('image_products', function (Blueprint $table) {
             $table->id();
-            $table->text();
+            $table->text('link');
             $table->dateTime('date')->default(DB::raw('CURRENT_TIMESTAMP'));
         });
     }
