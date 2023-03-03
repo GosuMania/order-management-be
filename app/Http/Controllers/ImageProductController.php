@@ -17,12 +17,12 @@ class ImageProductController extends Controller
             try {
                 $image = $request->file('image');
                 $path = $image->storePubliclyAs(
-                    '', Carbon::now()->timestamp . '.' . $image->getClientOriginalExtension(), 'images'
+                    '', Carbon::now()->timestamp.'.'.$image->getClientOriginalExtension(), 'images'
                 );
                 ImageProduct::create([
-                    'link' => env('APP_URL') . '/images/' . $path,
+                    'link' => env('APP_URL').'/images/'.$path,
                 ]);
-                return response()->json(env('APP_URL') . '/images/' . $path, 200, [], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
+                return response()->json(env('APP_URL').'/images/'.$path, 200, [], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
             } catch (Exception $e) {
                 return response()->json($e);
             }
