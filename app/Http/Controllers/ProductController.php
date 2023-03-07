@@ -37,8 +37,8 @@ class ProductController extends Controller
     }
 
     public function findObjectById($id, $array){
-        if ( isset( $array[$id]['ragione_sociale'] ) ) {
-            return $array[$id];
+        if ( isset( $array[$id] ) ) {
+            return $array[$id]['ragione_sociale'];
         }
 
         return false;
