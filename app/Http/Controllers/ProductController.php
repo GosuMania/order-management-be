@@ -22,11 +22,11 @@ class ProductController extends Controller
 
     public function getAllWithPagination($orderBy, $ascDesc, $perPage, $page)
     {
-        $products = ProductResource::collection(Product::orderBy($orderBy, $ascDesc)->paginate($perPage, ['*'], 'page', $page));
-        foreach($products as $product) {
-            $product['descrizioneArticolo'] = "ciao";
+        $obj = ProductResource::collection(Product::orderBy($orderBy, $ascDesc)->paginate($perPage, ['*'], 'page', $page));
+        foreach($obj->data as $product) {
+            $product->descrizioneArticolo = "ciao";
         }
-        return $products;
+        return $obj;
     }
 
     /**
