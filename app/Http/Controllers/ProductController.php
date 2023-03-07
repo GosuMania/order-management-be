@@ -24,7 +24,7 @@ class ProductController extends Controller
     {
         $products = ProductResource::collection(Product::orderBy($orderBy, $ascDesc)->paginate($perPage, ['*'], 'page', $page));
         $products[0]->descFornitore = "ciao";
-        return ProductResource::collection(Product::orderBy($orderBy, $ascDesc)->paginate($perPage, ['*'], 'page', $page));
+        return $products;
     }
 
     /**
