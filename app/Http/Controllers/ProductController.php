@@ -23,7 +23,9 @@ class ProductController extends Controller
     public function getAllWithPagination($orderBy, $ascDesc, $perPage, $page)
     {
         $products = ProductResource::collection(Product::orderBy($orderBy, $ascDesc)->paginate($perPage, ['*'], 'page', $page));
-        $products[0]->descFornitore = "ciao";
+        foreach($products as $product) {
+            $product->descFornitore = "ciao";
+        }
         return $products;
     }
 
