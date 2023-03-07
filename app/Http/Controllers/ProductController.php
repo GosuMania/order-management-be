@@ -31,7 +31,7 @@ class ProductController extends Controller
         // return $products;
         foreach($obj as $product) {
             $product['desc_provider'] = $this->getDescProviderById($product['id_provider'], $providers);
-            $product['desc_product_type'] = $this->getDescProductTypeById($product['id_provider'], $providers);
+            $product['desc_product_type'] = $this->getDescProductTypeById($product['id_product_type'], $productTypes);
         }
         return  ProductResource::collection($obj);
     }
