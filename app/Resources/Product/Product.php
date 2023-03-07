@@ -20,10 +20,10 @@ class Product extends JsonResource
             'descProvider' => $this->desc_provider,
             'idProductType' => $this->id_product_type,
             'descProductType' => $this->desc_product_type,
-            'immagine' => $this->immagine,
-            'codiceArticolo' => $this->codice_articolo,
-            'descrizioneArticolo' => $this->descrizione_articolo,
-            'prezzo' => $this->prezzo,
+            'image' => $this->immagine,
+            'productCode' => $this->codice_articolo,
+            'productDesc' => $this->descrizione_articolo,
+            'price' => $this->prezzo,
             'date' => $this->date,
         ];
     }
