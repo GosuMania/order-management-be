@@ -26,7 +26,7 @@ class ProductController extends Controller
         $obj = json_decode($objJson, true);
         return $obj;
 
-        $products = json_decode($obj->data;
+        $products = json_decode($obj->data);
         return $products;
 
         foreach($obj->data as $product) {
