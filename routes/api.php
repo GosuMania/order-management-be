@@ -11,6 +11,8 @@ use App\Http\Controllers\ShoeSizeController;
 use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\ProductTypeController;
 use App\Http\Controllers\ImageProductController;
+use App\Http\Controllers\ProductController;
+
 
 
 Route::group([
@@ -71,5 +73,13 @@ Route::controller(ProductTypeController::class)->prefix('product-type')->group(f
 
 Route::controller(ImageProductController::class)->prefix('image')->group(function () {
     Route::post('upload', 'upload'); // restituisce la lista
+});
+
+Route::controller(ProductController::class)->prefix('product')->group(function () {
+    Route::get('get-all', 'getAll'); // restituisce la lista
+    Route::post('create-or-update', 'createOrUpdate'); // crea o modifica
+    Route::get('get-by-id/{id}', 'getById'); // restituisce una specifica
+    Route::delete('delete/{id}', 'delete'); // elimina
+    Route::get('get-all-with-pagination/{orderBy}/{ascDesc}/{perPage}/{page}', 'getAllWithPagination');
 });
 

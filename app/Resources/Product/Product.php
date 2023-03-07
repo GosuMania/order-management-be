@@ -16,14 +16,12 @@ class Product extends JsonResource
     {
         return [
             'id' => $this->id,
-            'fornitore' => $this->fornitore,
+            'idProvider' => $this->id_provider,
+            'idProductType' => $this->id_product_type,
+            'immagine' => $this->immagine,
             'codiceArticolo' => $this->codice_articolo,
             'descrizioneArticolo' => $this->descrizione_articolo,
-            // 'taglia' => $this->taglia,
-            // 'idColore' => $this->id_colore,
             'prezzo' => $this->prezzo,
-            // 'quantitaMagazzino' => $this->quantita_magazzino,
-            // 'quantitaDisponibile' => $this->quantita_disponibile,
             'date' => $this->date,
         ];
     }

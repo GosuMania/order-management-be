@@ -2,20 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use App\Models\ProductVariant;
 use App\Http\Controllers\Controller;
+use App\Resources\Product\Product as ProductResource;
 use Illuminate\Http\Request;
 
-class ProductVariantController extends Controller
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function getAll()
     {
-        //
+        return ProductResource::collection(Product::orderBy('id', 'ASC')->get());
+    }
+
+    public function getAllWithPagination($orderBy, $ascDesc, $perPage, $page)
+    {
+        return ProductResource::collection(Product::orderBy($orderBy, $ascDesc)->paginate($perPage, ['*'], 'page', $page));
     }
 
     /**
