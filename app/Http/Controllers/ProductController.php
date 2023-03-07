@@ -24,7 +24,7 @@ class ProductController extends Controller
     {
         $products = ProductResource::collection(Product::orderBy($orderBy, $ascDesc)->paginate($perPage, ['*'], 'page', $page));
         foreach($products as $product) {
-            $product->descFornitore = "ciao";
+            $product->descrizioneArticolo = "ciao";
         }
         return $products;
     }
