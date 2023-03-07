@@ -26,7 +26,7 @@ class ProductController extends Controller
         // $products = $obj->data;
         // return $products;
         foreach($obj as $product) {
-            $product['descProvider'] = "ciao";
+            $product['desc_product_type'] = "ciao";
         }
         return  ProductResource::collection($obj);
     }
