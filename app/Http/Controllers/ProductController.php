@@ -30,13 +30,13 @@ class ProductController extends Controller
         // $products = $obj->data;
         // return $products;
         foreach($obj as $product) {
-            $product['desc_provider'] = findObjectById($product['id_provider'], $providers);
+            $product['desc_provider'] = $this->findObjectById($product['id_provider'], $providers);
             $product['desc_product_type'] = "ciao 2";
         }
         return  ProductResource::collection($obj);
     }
 
-    function findObjectById($id, $array){
+    public function findObjectById($id, $array){
         if ( isset( $array[$id] ) ) {
             return $array[$id]['ragioneSociale'];
         }
