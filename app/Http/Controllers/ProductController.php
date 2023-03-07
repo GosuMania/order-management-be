@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\ProductType;
 use App\Models\ProductVariant;
 use App\Http\Controllers\Controller;
 use App\Resources\Product\Product as ProductResource;
+use App\Resources\Provider\Provider;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -23,13 +25,23 @@ class ProductController extends Controller
     public function getAllWithPagination($orderBy, $ascDesc, $perPage, $page)
     {
         $obj =  Product::orderBy($orderBy, $ascDesc)->paginate($perPage, ['*'], 'page', $page);
+        $providers = Provider::orderBy('id', 'ASC')->get();
+        $productTypes = ProductType::orderBy('id', 'ASC')->get();
         // $products = $obj->data;
         // return $products;
         foreach($obj as $product) {
-            $product['desc_provider'] = "ciao";
+            $product['desc_provider'] = findObjectById($product['id_provider'], $providers);
             $product['desc_product_type'] = "ciao 2";
         }
         return  ProductResource::collection($obj);
+    }
+
+    function findObjectById($id, $array){
+        if ( isset( $array[$id] ) ) {
+            return $array[$id]['ragioneSociale'];
+        }
+
+        return false;
     }
 
     /**
