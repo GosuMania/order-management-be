@@ -23,7 +23,7 @@ class ProductController extends Controller
     public function getAllWithPagination($orderBy, $ascDesc, $perPage, $page)
     {
         $obj = ProductResource::collection(Product::orderBy($orderBy, $ascDesc)->paginate($perPage, ['*'], 'page', $page));
-        $products = $obj->data;
+        $products = $obj['data'];
         return $products;
 
         foreach($obj->data as $product) {
