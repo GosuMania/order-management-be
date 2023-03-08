@@ -134,24 +134,22 @@ class ProductController extends Controller
                 foreach ($colorVariant['sizeVariants'] as $sizeVariant) {
                     $idShoe = null;
                     $idClothing = null;
-                    $stock = 0;
                     switch ($request->idProductType) {
                         case 0:
-                            $idClothing = $sizeVariant->id;
+                            $idClothing = $sizeVariant['id'];
                             break;
                         case 2:
-                            $idShoe = $sizeVariant->id;
+                            $idShoe = $sizeVariant['id'];
                             break;
                         default:
-                            $stock = $colorVariant->stock;
                     }
                     $productVariant = ProductVariant::create([
                         'id_product' => $object->id,
                         'id_product_type' => $request->idProductType,
-                        'id_color' => $colorVariant->id,
+                        'id_color' => $colorVariant['id'],
                         'id_clothing_size' => $idClothing,
                         'id_shoe_size' => $idShoe,
-                        'stock' => $sizeVariant->stock,
+                        'stock' => $sizeVariant['stock'],
                         'date' => Carbon::now()
 
                     ]);
@@ -160,10 +158,10 @@ class ProductController extends Controller
                 $productVariant = ProductVariant::create([
                     'id_product' => $object->id,
                     'id_product_type' => $request->idProductType,
-                    'id_color' => $colorVariant->id,
+                    'id_color' => $colorVariant['id'],
                     'id_clothing_size' => null,
                     'id_shoe_size' => null,
-                    'stock' => $colorVariant->stock,
+                    'stock' => $colorVariant['stock'],
                     'date' => Carbon::now()
                 ]);
             }
