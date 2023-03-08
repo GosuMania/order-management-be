@@ -130,7 +130,7 @@ class ProductController extends Controller
         );
         ProductVariant::where('id_product', $request->id)->delete();
         foreach ($request->colorVariants as $colorVariant) {
-            if (count($colorVariant->sizeVariants) > 0) {
+            if (count($colorVariant['sizeVariants']) > 0) {
                 foreach ($colorVariant->sizeVariants as $sizeVariant) {
                     $idShoe = null;
                     $idClothing = null;
