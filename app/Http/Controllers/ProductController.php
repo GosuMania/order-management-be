@@ -72,12 +72,12 @@ class ProductController extends Controller
             if ($i == -1) {
                 $i = $i + 1;
                 $colorVariants[$i]['id'] = $productVariant['id_color'];
-                $colorVariants[$i]['desc_color'] = $colors[$productVariant['id_color']]['colore'];
+                $colorVariants[$i]['descColor'] = $colors[$productVariant['id_color']]['colore'];
             } else if ($colorVariants[$i]['id'] != $productVariant['id_color']) {
-                $colorVariants[$i]['size_variants'] = $sizeVariants;
+                $colorVariants[$i]['sizeVariants'] = $sizeVariants;
                 $i = $i + 1;
                 $colorVariants[$i]['id'] = $productVariant['id_color'];
-                $colorVariants[$i]['desc_color'] = $colors[$productVariant['id_color']]['colore'];
+                $colorVariants[$i]['descColor'] = $colors[$productVariant['id_color']]['colore'];
                 $sizeVariants = []; // inizialitto di nuovo array sizeVariants
                 $j = 0; // azzero contatore array sizeVariant
             } else {
@@ -88,14 +88,14 @@ class ProductController extends Controller
                 case 1:
                     if (isset($clothingSizes[$productVariant['id_clothing_size']])) {
                         $sizeVariants[$j]['id'] = $productVariant['id_clothing_size'];
-                        $sizeVariants[$j]['desc_color'] = $clothingSizes[$productVariant['id_clothing_size']]['size'];
+                        $sizeVariants[$j]['descColor'] = $clothingSizes[$productVariant['id_clothing_size']]['size'];
                         $sizeVariants[$j]['stock'] = $productVariant['stock'];
                     }
                     break;
                 case 3:
                     if (isset($showSizes[$productVariant['id_shoe_size']])) {
                         $sizeVariants[$j]['id'] = $productVariant['id_shoe_size'];
-                        $sizeVariants[$j]['desc_color'] = $showSizes[$productVariant['id_shoe_size']]['size'];
+                        $sizeVariants[$j]['descColor'] = $showSizes[$productVariant['id_shoe_size']]['size'];
                         $sizeVariants[$j]['stock'] = $productVariant['stock'];
                     }
                     break;
