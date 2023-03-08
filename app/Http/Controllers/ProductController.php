@@ -11,6 +11,7 @@ use App\Models\ProductVariant;
 use App\Models\Provider;
 use App\Http\Controllers\Controller;
 use App\Resources\Product\Product as ProductResource;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use stdClass;
 use function Webmozart\Assert\Tests\StaticAnalysis\length;
@@ -113,9 +114,48 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function createOrUpdate(Request $request)
     {
-        //
+        $object = Product::updateOrCreate(
+            ['id' => $request->id],
+            [
+                'id_provider' => $request->idProvider,
+                'id_product_type' => $request->idProductType,
+                'immagine' => $request->image,
+                'codice_articolo' => $request->productCode,
+                'descrizione_articolo' => $request->productDesc,
+                'prezzo' => $request->price,
+                'date' => Carbon::now()
+            ]
+        );
+        ProductVariant::where('id_product', $request->id)->delete();
+        foreach ($request->colorVariants as $colorVariant) {
+            foreach ($colorVariant->sizeVariants as $sizeVariant) {
+                $idShoe = null;
+                $idClothing = null;
+                switch ($request->idProductType) {
+                    case 1:
+                        $idClothing = $sizeVariant->id;
+                        break;
+                    case 3:
+                        $idShoe = $sizeVariant->id;
+                        break;
+                    default:
+                }
+                $productVariants = ProductVariant::create([
+                    'id_product' => $object->id,
+                    'id_product_type' => $request->idProductType,
+                    'id_color' => $colorVariant->id,
+                    'id_clothing_size' => $idClothing,
+                    'id_shoe_size' => $idShoe,
+                    'stock' => $sizeVariant->stock,
+                    'date' => Carbon::now()
+
+                ]);
+            }
+        }
+
+        return response()->json(['data' => new PromotionResource($object)], 200);
     }
 
     /**
