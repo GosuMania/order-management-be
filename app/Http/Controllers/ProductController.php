@@ -90,10 +90,7 @@ class ProductController extends Controller
                 default:
             }
         }
-        if ( isset( $array[$id] ) ) {
-            return $array[$id]['type'];
-        }
-        return false;
+        return $colorVariants;
     }
 
     /**
