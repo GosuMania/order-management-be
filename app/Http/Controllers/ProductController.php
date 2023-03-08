@@ -130,31 +130,44 @@ class ProductController extends Controller
         );
         ProductVariant::where('id_product', $request->id)->delete();
         foreach ($request->colorVariants as $colorVariant) {
-            foreach ($colorVariant->sizeVariants as $sizeVariant) {
-                $idShoe = null;
-                $idClothing = null;
-                switch ($request->idProductType) {
-                    case 1:
-                        $idClothing = $sizeVariant->id;
-                        break;
-                    case 3:
-                        $idShoe = $sizeVariant->id;
-                        break;
-                    default:
+            if (count($colorVariant->sizeVariants) > 0) {
+                foreach ($colorVariant->sizeVariants as $sizeVariant) {
+                    $idShoe = null;
+                    $idClothing = null;
+                    $stock = 0;
+                    switch ($request->idProductType) {
+                        case 1:
+                            $idClothing = $sizeVariant->id;
+                            break;
+                        case 3:
+                            $idShoe = $sizeVariant->id;
+                            break;
+                        default:
+                            $stock = $colorVariant->stock;
+                    }
+                    $productVariant = ProductVariant::create([
+                        'id_product' => $object->id,
+                        'id_product_type' => $request->idProductType,
+                        'id_color' => $colorVariant->id,
+                        'id_clothing_size' => $idClothing,
+                        'id_shoe_size' => $idShoe,
+                        'stock' => $sizeVariant->stock,
+                        'date' => Carbon::now()
+
+                    ]);
                 }
-                $productVariants = ProductVariant::create([
+            } else {
+                $productVariant = ProductVariant::create([
                     'id_product' => $object->id,
                     'id_product_type' => $request->idProductType,
                     'id_color' => $colorVariant->id,
-                    'id_clothing_size' => $idClothing,
-                    'id_shoe_size' => $idShoe,
-                    'stock' => $sizeVariant->stock,
+                    'id_clothing_size' => null,
+                    'id_shoe_size' => null,
+                    'stock' => $colorVariant->stock,
                     'date' => Carbon::now()
-
                 ]);
             }
         }
-
         return response()->json(['data' => new PromotionResource($object)], 200);
     }
 
