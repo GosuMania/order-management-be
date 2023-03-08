@@ -24,7 +24,7 @@ class Product extends JsonResource
             'productCode' => $this->codice_articolo,
             'productDesc' => $this->descrizione_articolo,
             'price' => $this->prezzo,
-            'colorVariants' => [],
+            'colorVariants' => $this->color_variants,
             'date' => $this->date,
         ];
     }
