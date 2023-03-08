@@ -89,12 +89,14 @@ class ProductController extends Controller
                     if (isset($clothingSizes[$productVariant['id_clothing_size']])) {
                         $sizeVariants[$j]['id'] = $productVariant['id_clothing_size'];
                         $sizeVariants[$j]['desc_color'] = $clothingSizes[$productVariant['id_clothing_size']]['size'];
+                        $sizeVariants[$j]['stock'] = $productVariant['stock'];
                     }
                     break;
                 case 3:
                     if (isset($showSizes[$productVariant['id_shoe_size']])) {
                         $sizeVariants[$j]['id'] = $productVariant['id_shoe_size'];
                         $sizeVariants[$j]['desc_color'] = $showSizes[$productVariant['id_shoe_size']]['size'];
+                        $sizeVariants[$j]['stock'] = $productVariant['stock'];
                     }
                     break;
                 default:
