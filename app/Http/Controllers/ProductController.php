@@ -65,10 +65,13 @@ class ProductController extends Controller
         $i = -1;
         $j = 0;
         foreach($productVariants as $productVariant) {
-            if ( isset( $colors[$productVariant['id_color']] ) && ($i == -1 || $colorVariants[$i]['id'] != $productVariant['id_color'])) {
+            if ( ($i == -1 || $colorVariants[$i]['id'] != $productVariant['id_color']) && isset( $colors[$productVariant['id_color']] )) {
                 $i = $i + 1;
                 $colorVariants[$i]['id'] = $productVariant['id_color'];
                 $colorVariants[$i]['desc_color'] =  $colors[$productVariant['id_color']]['colore'];
+                if($i > 0) {
+                    $colorVariants[$i -1]['size_variants'] = $sizeVariants;
+                }
                 $sizeVariants = []; // inizialitto di nuovo array sizeVariants
                 $j = 0; // azzero contatore array sizeVariant
             } else {
