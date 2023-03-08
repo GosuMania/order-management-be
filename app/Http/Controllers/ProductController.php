@@ -69,12 +69,6 @@ class ProductController extends Controller
         $i = -1;
         $j = 0;
         foreach ($productVariants as $productVariant) {
-            if (!isset($colors[$productVariant['id_color']])) {
-                if (count($colorVariants) > 0) {
-                    $colorVariants[$i]['size_variants'] = $sizeVariants;
-                }
-                return $colorVariants;
-            }
             if ($i == -1) {
                 $i = $i + 1;
                 $colorVariants[$i]['id'] = $productVariant['id_color'];
@@ -105,6 +99,9 @@ class ProductController extends Controller
                     break;
                 default:
             }
+        }
+        if (count($colorVariants) > 0) {
+            $colorVariants[$i]['size_variants'] = $sizeVariants;
         }
         return $colorVariants;
     }
