@@ -63,7 +63,7 @@ class ProductController extends Controller
 
     public function getColorVariants($id, $idProductType, $colors, $showSizes, $clothingSizes)
     {
-        $productVariants = ProductVariant::where('id_product', $id)->orderBy('id', 'ASC')->get();
+        $productVariants = ProductVariant::where('id_product', $id)->orderBy('id_product', 'ASC')->get();
         $colorVariants = [];
         $sizeVariants = [];
         $i = -1;
