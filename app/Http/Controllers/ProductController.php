@@ -166,7 +166,7 @@ class ProductController extends Controller
                 ]);
             }
         }
-        return response()->json(['data' => new PromotionResource($object)], 200);
+        return response()->json(['data' => new ProductResource($object)], 200);
     }
 
     /**
