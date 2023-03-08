@@ -101,6 +101,7 @@ class ProductController extends Controller
                     }
                     break;
                 default:
+                    $colorVariants[$i]['stock'] = $productVariant['stock'];
             }
         }
         if (count($colorVariants) > 0) {
