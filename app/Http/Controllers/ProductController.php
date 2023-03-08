@@ -86,14 +86,14 @@ class ProductController extends Controller
             }
 
             switch ($idProductType) {
-                case 1:
+                case 0:
                     if (isset($clothingSizes[$productVariant['id_clothing_size']])) {
                         $sizeVariants[$j]['id'] = $productVariant['id_clothing_size'];
                         $sizeVariants[$j]['descSize'] = $clothingSizes[$productVariant['id_clothing_size']]['size'];
                         $sizeVariants[$j]['stock'] = $productVariant['stock'];
                     }
                     break;
-                case 3:
+                case 2:
                     if (isset($showSizes[$productVariant['id_shoe_size']])) {
                         $sizeVariants[$j]['id'] = $productVariant['id_shoe_size'];
                         $sizeVariants[$j]['descSize'] = $showSizes[$productVariant['id_shoe_size']]['size'];
@@ -136,10 +136,10 @@ class ProductController extends Controller
                     $idClothing = null;
                     $stock = 0;
                     switch ($request->idProductType) {
-                        case 1:
+                        case 0:
                             $idClothing = $sizeVariant->id;
                             break;
-                        case 3:
+                        case 2:
                             $idShoe = $sizeVariant->id;
                             break;
                         default:
