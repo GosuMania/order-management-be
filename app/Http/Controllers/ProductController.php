@@ -103,7 +103,7 @@ class ProductController extends Controller
             }
         }
         if (count($colorVariants) > 0) {
-            $colorVariants[$i]['size_variants'] = $sizeVariants;
+            $colorVariants[$i]['sizeVariants'] = $sizeVariants;
         }
         return $colorVariants;
     }
