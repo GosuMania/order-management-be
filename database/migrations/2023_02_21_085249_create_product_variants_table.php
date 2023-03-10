@@ -26,21 +26,9 @@ return new class extends Migration
 
         Schema::table('product_variants', function ($table) {
             $table->foreign('id_product')->references('id')->on('products')->onUpdate('cascade');
-        });
-
-        Schema::table('product_variants', function ($table) {
             $table->foreign('id_product_type')->references('id')->on('product_types')->onUpdate('cascade');
-        });
-
-        Schema::table('product_variants', function ($table) {
             $table->foreign('id_color')->references('id')->on('colors')->onUpdate('cascade');
-        });
-
-        Schema::table('product_variants', function ($table) {
             $table->foreign('id_clothing_size')->references('id')->on('clothing_sizes')->onUpdate('cascade');
-        });
-
-        Schema::table('product_variants', function ($table) {
             $table->foreign('id_shoe_size')->references('id')->on('shoe_sizes')->onUpdate('cascade');
         });
     }

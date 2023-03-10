@@ -25,9 +25,6 @@ return new class extends Migration
         });
         Schema::table('products', function ($table) {
             $table->foreign('id_provider')->references('id')->on('providers')->onUpdate('cascade')->onDelete('cascade');
-        });
-
-        Schema::table('products', function ($table) {
             $table->foreign('id_product_type')->references('id')->on('product_types')->onUpdate('cascade')->onDelete('cascade');
         });
 
