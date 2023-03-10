@@ -25,11 +25,11 @@ return new class extends Migration
         });
 
         Schema::table('product_variants', function ($table) {
-            $table->foreign('id_product')->references('id')->on('products')->onUpdate('cascade');
-            $table->foreign('id_product_type')->references('id')->on('product_types')->onUpdate('cascade');
-            $table->foreign('id_color')->references('id')->on('colors')->onUpdate('cascade');
-            $table->foreign('id_clothing_size')->references('id')->on('clothing_sizes')->onUpdate('cascade');
-            $table->foreign('id_shoe_size')->references('id')->on('shoe_sizes')->onUpdate('cascade');
+            $table->foreign('id_product')->references('id')->on('products')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('id_product_type')->references('id')->on('product_types')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('id_color')->references('id')->on('colors')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('id_clothing_size')->references('id')->on('clothing_sizes')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('id_shoe_size')->references('id')->on('shoe_sizes')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
