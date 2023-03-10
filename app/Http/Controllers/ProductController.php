@@ -170,59 +170,9 @@ class ProductController extends Controller
         return response()->json(['data' => new ProductResource($object)], 200);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function delete($id)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param \App\Models\ProductVariant $product
-     * @return \Illuminate\Http\Response
-     */
-    public function show(ProductVariant $product)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param \App\Models\ProductVariant $product
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(ProductVariant $product)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\ProductVariant $product
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, ProductVariant $product)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param \App\Models\ProductVariant $product
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(ProductVariant $product)
-    {
-        //
+        $product = Product::where('id', $id)->first();
+        return $product->delete();
     }
 }

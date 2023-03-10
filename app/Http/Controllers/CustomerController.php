@@ -60,12 +60,7 @@ class CustomerController extends Controller
 
     public function delete($id)
     {
-        $user = Auth::user();
-        if ($user->subscription_level < 4) {
-            return response()->json(['message' => 'Unauthorized'], 401);
-        } else {
-            return Customer::where('id', $id)->delete();
-        }
-
+        $customer = Customer::where('id', $id)->first();
+        return $customer->delete();
     }
 }
