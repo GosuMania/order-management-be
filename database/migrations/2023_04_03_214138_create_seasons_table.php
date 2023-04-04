@@ -15,7 +15,15 @@ return new class extends Migration
     {
         Schema::create('seasons', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->bigInteger('id_season_type')->unsigned();
+            $table->string('desc_season_type');
+            $table->integer('year');
+            $table->dateTime('startDate');
+            $table->dateTime('finalDate');
+        });
+
+        Schema::table('seasons', function ($table) {
+            $table->foreign('id_season_type')->references('id')->on('season_types')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

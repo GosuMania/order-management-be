@@ -27,7 +27,7 @@ return new class extends Migration
             $table->string('desc_delivery');
             $table->double('total_pieces');
             $table->integer('total_amount');
-            $table->dateTime('order_date');
+            $table->dateTime('date');
         });
         Schema::table('orders', function ($table) {
             $table->foreign('id_user')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
