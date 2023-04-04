@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Resources\ProductType;
+namespace App\Resources\SimplePickList;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-class ProductType extends JsonResource
+class SimplePickList extends JsonResource
 {
     /**
      * Transform the resource into an array.
