@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Resources\ProductType;
+namespace App\Resources\SeasonType;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-class ProductType extends JsonResource
+class SeasonType extends JsonResource
 {
     /**
      * Transform the resource into an array.

@@ -12,6 +12,6 @@ class ProductType extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'type'
+        'desc'
     ];
 }
