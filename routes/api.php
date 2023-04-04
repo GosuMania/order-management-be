@@ -12,6 +12,10 @@ use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\ProductTypeController;
 use App\Http\Controllers\ImageProductController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SeasonTypeController;
+use App\Http\Controllers\PaymentMethodsController;
+use App\Http\Controllers\OrderTypeController;
+use App\Http\Controllers\DeliveryController;
 
 
 
@@ -81,5 +85,21 @@ Route::controller(ProductController::class)->prefix('product')->group(function (
     Route::get('get-by-id/{id}', 'getById'); // restituisce una specifica
     Route::delete('delete/{id}', 'delete'); // elimina
     Route::get('get-all-with-pagination/{orderBy}/{ascDesc}/{perPage}/{page}', 'getAllWithPagination');
+});
+
+Route::controller(DeliveryController::class)->prefix('delivery')->group(function () {
+    Route::get('get-all', 'getAll'); // restituisce la lista
+});
+
+Route::controller(OrderTypeController::class)->prefix('order-type')->group(function () {
+    Route::get('get-all', 'getAll'); // restituisce la lista
+});
+
+Route::controller(PaymentMethodsController::class)->prefix('payment-method')->group(function () {
+    Route::get('get-all', 'getAll'); // restituisce la lista
+});
+
+Route::controller(SeasonTypeController::class)->prefix('season-type')->group(function () {
+    Route::get('get-all', 'getAll'); // restituisce la lista
 });
 
