@@ -28,7 +28,7 @@ class Order extends JsonResource
             'descSeason' => $this->desc_season,
             'idDelivery' => $this->id_delivery,
             'descDelivery' => $this->desc_delivery,
-            'totalPieces' => $this->total_price,
+            'totalPieces' => $this->total_pieces,
             'totalAmount' => $this->total_amount,
             'productLink' => $this->product_list,
             'date' => $this->date,
