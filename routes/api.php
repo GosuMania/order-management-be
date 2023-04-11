@@ -16,7 +16,9 @@ use App\Http\Controllers\SeasonTypeController;
 use App\Http\Controllers\PaymentMethodsController;
 use App\Http\Controllers\OrderTypeController;
 use App\Http\Controllers\DeliveryController;
-
+use App\Http\Controllers\SeasonController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OrderProductController;
 
 
 Route::group([
@@ -101,5 +103,29 @@ Route::controller(PaymentMethodsController::class)->prefix('payment-method')->gr
 
 Route::controller(SeasonTypeController::class)->prefix('season-type')->group(function () {
     Route::get('get-all', 'getAll'); // restituisce la lista
+});
+
+Route::controller(SeasonController::class)->prefix('season')->group(function () {
+    Route::get('get-all', 'getAll'); // restituisce la lista
+    Route::post('create-or-update', 'createOrUpdate'); // crea o modifica
+    Route::get('get-by-id/{id}', 'getById'); // restituisce una specifica
+    Route::delete('delete/{id}', 'delete'); // elimina
+    Route::get('get-all-with-pagination/{orderBy}/{ascDesc}/{perPage}/{page}', 'getAllWithPagination');
+});
+
+Route::controller(OrderController::class)->prefix('order')->group(function () {
+    Route::get('get-all', 'getAll'); // restituisce la lista
+    Route::post('create-or-update', 'createOrUpdate'); // crea o modifica
+    Route::get('get-by-id/{id}', 'getById'); // restituisce una specifica
+    Route::delete('delete/{id}', 'delete'); // elimina
+    Route::get('get-all-with-pagination/{orderBy}/{ascDesc}/{perPage}/{page}', 'getAllWithPagination');
+});
+
+Route::controller(OrderProductController::class)->prefix('order')->group(function () {
+    Route::get('get-by-id-order', 'getByIdOrder'); // restituisce la lista
+    Route::post('create-or-update', 'createOrUpdate'); // crea o modifica
+    Route::get('get-by-id/{id}', 'getById'); // restituisce una specifica
+    Route::delete('delete/{id}', 'delete'); // elimina
+    Route::delete('delete-by-id-order/{id}', 'deleteByIdOrder'); // elimina
 });
 
