@@ -64,4 +64,10 @@ class OrderController extends Controller
         return response()->json(["data" => $data], 200);
 
     }
+
+    public function delete($id)
+    {
+        $product = Order::where('id', $id)->first();
+        return $product->delete();
+    }
 }
