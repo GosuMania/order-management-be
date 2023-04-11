@@ -30,6 +30,7 @@ class Order extends JsonResource
             'descDelivery' => $this->desc_delivery,
             'totalPieces' => $this->total_price,
             'totalAmount' => $this->total_amount,
+            'productLink' => $this->product_list,
             'date' => $this->date,
         ];
     }
