@@ -23,6 +23,14 @@ class CustomerController extends Controller
         return CustomerResource::collection(Customer::orderBy($orderBy, $ascDesc)->paginate($perPage, ['*'], 'page', $page));
     }
 
+    public function getAllWithPaginationSearch($word, $orderBy, $ascDesc, $perPage, $page)
+    {
+        return CustomerResource::collection(Customer::
+        where('ragione_sociale', $word)
+            ->orderBy($orderBy, $ascDesc)->paginate($perPage, ['*'], 'page', $page));
+    }
+
+
     public function createOrUpdate(Request $request)
     {
             $object = Customer::updateOrCreate(
