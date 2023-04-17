@@ -26,7 +26,11 @@ class CustomerController extends Controller
     public function getAllWithPaginationSearch($word, $orderBy, $ascDesc, $perPage, $page)
     {
         return CustomerResource::collection(Customer::
-        where('ragione_sociale', 'LIKE', "%$word%")
+            where('ragione_sociale', 'LIKE', "%$word%")
+            ->orWhere('provincia', 'LIKE', "%$word%")
+            ->orWhere('username_agente_riferimento', 'LIKE', "%$word%")
+            ->orWhere('telefono', 'LIKE', "%$word%")
+            ->orWhere('email', 'LIKE', "%$word%")
             ->orderBy($orderBy, $ascDesc)->paginate($perPage, ['*'], 'page', $page));
     }
 

@@ -46,6 +46,28 @@ class ProductController extends Controller
         return ProductResource::collection($obj);
     }
 
+    public function getAllWithPaginationSearch($word, $orderBy, $ascDesc, $perPage, $page)
+    {
+        $obj = Product::where('desc_provider', 'LIKE', "%$word%")
+            ->orWhere('desc_product_type', 'LIKE', "%$word%")
+            ->orWhere('codice_articolo', 'LIKE', "%$word%")
+            ->orWhere('descrizione_articolo', 'LIKE', "%$word%")
+            ->orderBy($orderBy, $ascDesc)->paginate($perPage, ['*'], 'page', $page);
+        $providers = Provider::orderBy('id', 'ASC')->get();
+        $productTypes = ProductType::orderBy('id', 'ASC')->get();
+        $colors = Color::orderBy('id', 'ASC')->get();
+        $showSizes = ShoeSize::orderBy('id', 'ASC')->get();
+        $clothingSizes = ClothingSize::orderBy('id', 'ASC')->get();
+        // $products = $obj->data;
+        // return $products;
+        foreach ($obj as $product) {
+            $product['desc_provider'] = $this->getDescProviderById($product['id_provider'], $providers);
+            $product['desc_product_type'] = $this->getDescProductTypeById($product['id_product_type'], $productTypes);
+            $product['color_variants'] = $this->getColorVariants($product['id'], $product['id_product_type'], $colors, $showSizes, $clothingSizes);
+        }
+        return ProductResource::collection($obj);
+    }
+
     public function getDescProviderById($id, $array)
     {
         if (isset($array[$id])) {

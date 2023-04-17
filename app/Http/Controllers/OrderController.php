@@ -32,6 +32,18 @@ class OrderController extends Controller
         return OrderResource::collection($obj);
     }
 
+    public function getAllWithPaginationSearch($word, $orderBy, $ascDesc, $perPage, $page)
+    {
+        $obj = Order::where('id', 'LIKE', "%$word%")
+            ->orWhere('desc_user', 'LIKE', "%$word%")
+            ->orWhere('desc_customer', 'LIKE', "%$word%")
+            ->orWhere('date', 'LIKE', "%$word%")
+            ->orWhere('desc_delivery', 'LIKE', "%$word%")
+            ->orWhere('desc_season', 'LIKE', "%$word%")
+            ->orderBy($orderBy, $ascDesc)->paginate($perPage, ['*'], 'page', $page);
+        return OrderResource::collection($obj);
+    }
+
     public function getById($id)
     {
         $order = Order::findOrFail($id);

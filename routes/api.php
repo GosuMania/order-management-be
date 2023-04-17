@@ -48,6 +48,7 @@ Route::controller(ProductVariantController::class)->prefix('product')->group(fun
     Route::get('get-by-id/{id}', 'getById'); // restituisce una specifica
     Route::delete('delete/{id}', 'delete'); // elimina
     Route::get('get-all-with-pagination/{orderBy}/{ascDesc}/{perPage}/{page}', 'getAllWithPagination');
+    Route::get('get-all-with-pagination-search/{word}/{orderBy}/{ascDesc}/{perPage}/{page}', 'getAllWithPaginationSearch');
 });
 
 Route::controller(ColorController::class)->prefix('color')->group(function () {
@@ -120,6 +121,7 @@ Route::controller(OrderController::class)->prefix('order')->group(function () {
     Route::get('get-by-id/{id}', 'getById'); // restituisce una specifica
     Route::delete('delete/{id}', 'delete'); // elimina
     Route::get('get-all-with-pagination/{orderBy}/{ascDesc}/{perPage}/{page}', 'getAllWithPagination');
+    Route::get('get-all-with-pagination-search/{word}/{orderBy}/{ascDesc}/{perPage}/{page}', 'getAllWithPaginationSearch');
     Route::get('get-total-pieces-and-amounts', 'getTotalPiecesAndAmounts'); // restituisce una specifica
 });
 
