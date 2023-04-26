@@ -95,12 +95,12 @@ class ProductController extends Controller
             if ($i == -1) {
                 $i = $i + 1;
                 $colorVariants[$i]['id'] = $productVariant['id_color'];
-                $colorVariants[$i]['descColor'] = $colors[$productVariant['id_color']]['colore'];
+                $colorVariants[$i]['descColor'] = $this->getDescColor($colors,$productVariant['id_color']);
             } else if ($colorVariants[$i]['id'] != $productVariant['id_color']) {
                 $colorVariants[$i]['sizeVariants'] = $sizeVariants;
                 $i = $i + 1;
                 $colorVariants[$i]['id'] = $productVariant['id_color'];
-                $colorVariants[$i]['descColor'] = $colors[$productVariant['id_color']]['colore'];
+                $colorVariants[$i]['descColor'] = $this->getDescColor($colors,$productVariant['id_color']);
                 $sizeVariants = []; // inizialitto di nuovo array sizeVariants
                 $j = 0; // azzero contatore array sizeVariant
             } else {
@@ -111,14 +111,14 @@ class ProductController extends Controller
                 case 0:
                     if (isset($clothingSizes[$productVariant['id_clothing_size']])) {
                         $sizeVariants[$j]['id'] = $productVariant['id_clothing_size'];
-                        $sizeVariants[$j]['descSize'] = $clothingSizes[$productVariant['id_clothing_size']]['size'];
+                        $sizeVariants[$j]['descSize'] = $this->getDescSize($clothingSizes,$productVariant['id_clothing_size'] );
                         $sizeVariants[$j]['stock'] = $productVariant['stock'];
                     }
                     break;
                 case 2:
                     if (isset($showSizes[$productVariant['id_shoe_size']])) {
                         $sizeVariants[$j]['id'] = $productVariant['id_shoe_size'];
-                        $sizeVariants[$j]['descSize'] = $showSizes[$productVariant['id_shoe_size']]['size'];
+                        $sizeVariants[$j]['descSize'] = $this->getDescSize($showSizes,$productVariant['id_shoe_size']);
                         $sizeVariants[$j]['stock'] = $productVariant['stock'];
                     }
                     break;
@@ -130,6 +130,24 @@ class ProductController extends Controller
             $colorVariants[$i]['sizeVariants'] = $sizeVariants;
         }
         return $colorVariants;
+    }
+
+    public function getDescColor($colors, $id) {
+        foreach ($colors as $color) {
+            if($color['id'] == $id) {
+                return $color['colore'];
+            }
+        }
+        return '';
+    }
+
+    public function getDescSize($sizes, $id) {
+        foreach ($sizes as $size) {
+            if($size['id'] == $id) {
+                return $size['size'];
+            }
+        }
+        return '';
     }
 
     /**
