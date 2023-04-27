@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\ShoeSize;
 use App\Http\Controllers\Controller;
-use App\Resources\ShoeSize\ShoeSize as ShoeSizeResource;
+use App\Resources\SimplePickList\SimplePickList as SimplePickListResource;
 use Illuminate\Http\Request;
 
 class ShoeSizeController extends Controller
 {
     public function getAll()
     {
-        return ShoeSizeResource::collection(ShoeSize::orderBy('id', 'ASC')->get());
+        return SimplePickListResource::collection(ShoeSize::orderBy('id', 'ASC')->get());
     }
 }

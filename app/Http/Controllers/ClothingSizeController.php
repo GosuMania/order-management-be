@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\ClothingSize;
 use App\Http\Controllers\Controller;
-use App\Resources\ClothingSize\ClothingSize as ClothingSizeResource;
+use App\Resources\SimplePickList\SimplePickList as SimplePickListResource;
 use Illuminate\Http\Request;
 
 class ClothingSizeController extends Controller
 {
     public function getAll()
     {
-        return ClothingSizeResource::collection(ClothingSize::orderBy('id', 'ASC')->get());
+        return SimplePickListResource::collection(ClothingSize::orderBy('id', 'ASC')->get());
     }
 }
