@@ -144,7 +144,7 @@ class ProductController extends Controller
     public function getDescSize($sizes, $id) {
         foreach ($sizes as $size) {
             if($size['id'] == $id) {
-                return $size['size'];
+                return $size['desc'];
             }
         }
         return '';

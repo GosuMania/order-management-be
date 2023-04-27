@@ -18,6 +18,7 @@ use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\SeasonController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderProductController;
+use App\Http\Controllers\ClothingSizeNumberController;
 
 
 Route::group([
@@ -55,6 +56,10 @@ Route::controller(ColorController::class)->prefix('color')->group(function () {
 });
 
 Route::controller(ClothingSizeController::class)->prefix('clothing-size')->group(function () {
+    Route::get('get-all', 'getAll'); // restituisce la lista
+});
+
+Route::controller(ClothingSizeNumberController::Controller::class)->prefix('clothing-size-number')->group(function () {
     Route::get('get-all', 'getAll'); // restituisce la lista
 });
 

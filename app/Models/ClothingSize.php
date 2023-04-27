@@ -11,6 +11,6 @@ class ClothingSize extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'size',
+        'desc',
     ];
 }
