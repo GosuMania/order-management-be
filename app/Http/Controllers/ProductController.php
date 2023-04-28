@@ -37,12 +37,13 @@ class ProductController extends Controller
         $colors = Color::orderBy('id', 'ASC')->get();
         $showSizes = ShoeSize::orderBy('id', 'ASC')->get();
         $clothingSizes = ClothingSize::orderBy('id', 'ASC')->get();
+        $clothingNumberSizes = ClothingNumberSize::orderBy('id', 'ASC')->get();
         // $products = $obj->data;
         // return $products;
         foreach ($obj as $product) {
             $product['desc_provider'] = $this->getDescProviderById($product['id_provider'], $providers);
             $product['desc_product_type'] = $this->getDescProductTypeById($product['id_product_type'], $productTypes);
-            $product['color_variants'] = $this->getColorVariants($product['id'], $product['id_product_type'], $colors, $showSizes, $clothingSizes);
+            $product['color_variants'] = $this->getColorVariants($product['id'], $product['id_product_type'], $colors, $showSizes, $clothingSizes, $clothingNumberSizes);
         }
         return ProductResource::collection($obj);
     }
