@@ -16,6 +16,7 @@ class Product extends Model
         'desc_provider',
         'id_product_type',
         'desc_product_type',
+        'id_clothing_size_type',
         'immagine',
         'codice_articolo',
         'descrizione_articolo',
@@ -31,5 +32,10 @@ class Product extends Model
     public function productType()
     {
         return $this->belongsTo(ProductType::class, 'id_product_type'); // appartiene a
+    }
+
+    public function clothingSizeType()
+    {
+        return $this->belongsTo(ClothingSizeType::class, 'id_clothing_size_type'); // appartiene a
     }
 }

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('desc_provider');
             $table->bigInteger('id_product_type')->unsigned();
             $table->string('desc_product_type');
+            $table->bigInteger('id_clothing_size_type')->unsigned()->default(1);
             $table->string('immagine')->nullable();
             $table->string('codice_articolo');
             $table->string('descrizione_articolo');
@@ -28,6 +29,7 @@ return new class extends Migration
         Schema::table('products', function ($table) {
             $table->foreign('id_provider')->references('id')->on('providers')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('id_product_type')->references('id')->on('product_types')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('id_clothing_size_type')->references('id')->on('clothing_size_types')->onDelete('cascade')->onUpdate('cascade');
         });
 
     }
