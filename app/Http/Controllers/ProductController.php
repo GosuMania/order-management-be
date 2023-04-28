@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ClothingNumberSize;
 use App\Models\ClothingSize;
 use App\Models\ShoeSize;
 use App\Models\Color;
@@ -58,12 +59,13 @@ class ProductController extends Controller
         $colors = Color::orderBy('id', 'ASC')->get();
         $showSizes = ShoeSize::orderBy('id', 'ASC')->get();
         $clothingSizes = ClothingSize::orderBy('id', 'ASC')->get();
+        $clothingNumberSizes = ClothingNumberSize::orderBy('id', 'ASC')->get();
         // $products = $obj->data;
         // return $products;
         foreach ($obj as $product) {
             $product['desc_provider'] = $this->getDescProviderById($product['id_provider'], $providers);
             $product['desc_product_type'] = $this->getDescProductTypeById($product['id_product_type'], $productTypes);
-            $product['color_variants'] = $this->getColorVariants($product['id'], $product['id_product_type'], $colors, $showSizes, $clothingSizes);
+            $product['color_variants'] = $this->getColorVariants($product['id'], $product['id_product_type'], $colors, $showSizes, $clothingSizes, $clothingNumberSizes);
         }
         return ProductResource::collection($obj);
     }
@@ -84,7 +86,7 @@ class ProductController extends Controller
         return false;
     }
 
-    public function getColorVariants($id, $idProductType, $colors, $showSizes, $clothingSizes)
+    public function getColorVariants($id, $idProductType, $colors, $showSizes, $clothingSizes, $clothingNumberSizes)
     {
         $productVariants = ProductVariant::where('id_product', $id)->orderBy('id_product', 'ASC')->get();
         $colorVariants = [];
@@ -109,10 +111,18 @@ class ProductController extends Controller
 
             switch ($idProductType) {
                 case 0:
-                    if (isset($clothingSizes[$productVariant['id_clothing_size']])) {
-                        $sizeVariants[$j]['id'] = $productVariant['id_clothing_size'];
-                        $sizeVariants[$j]['descSize'] = $this->getDescSize($clothingSizes,$productVariant['id_clothing_size'] );
-                        $sizeVariants[$j]['stock'] = $productVariant['stock'];
+                    if($productVariants['id_clothing_size_type'] == 1) {
+                        if (isset($clothingSizes[$productVariant['id_clothing_size']])) {
+                            $sizeVariants[$j]['id'] = $productVariant['id_clothing_size'];
+                            $sizeVariants[$j]['descSize'] = $this->getDescSize($clothingSizes,$productVariant['id_clothing_size'] );
+                            $sizeVariants[$j]['stock'] = $productVariant['stock'];
+                        }
+                    } else {
+                        if (isset($clothingNumberSizes[$productVariant['id_clothing_number_size']])) {
+                            $sizeVariants[$j]['id'] = $productVariant['id_clothing_number_size'];
+                            $sizeVariants[$j]['descSize'] = $this->getDescSize($clothingNumberSizes,$productVariant['id_clothing_number_size'] );
+                            $sizeVariants[$j]['stock'] = $productVariant['stock'];
+                        }
                     }
                     break;
                 case 2:

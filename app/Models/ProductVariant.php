@@ -14,8 +14,10 @@ class ProductVariant extends Model
     protected $fillable = [
         'id_product',
         'id_product_type',
+        'id_clothing_size_type',
         'id_color',
         'id_clothing_size',
+        'id_clothing_number_size',
         'id_shoe_size',
         'stock',
         'date'
@@ -36,9 +38,19 @@ class ProductVariant extends Model
         return $this->belongsTo(Color::class, 'id_color'); // appartiene a
     }
 
+    public function clothingSizeType()
+    {
+        return $this->belongsTo(ClothingSizeType::class, 'id_clothing_size_type'); // appartiene a
+    }
+
     public function clothingSize()
     {
         return $this->belongsTo(ClothingSize::class, 'id_clothing_size'); // appartiene a
+    }
+
+    public function clothingNumberSize()
+    {
+        return $this->belongsTo(ClothingNumberSize::class, 'id_clothing_number_size'); // appartiene a
     }
 
     public function shoeSize()
