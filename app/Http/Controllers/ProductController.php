@@ -196,16 +196,33 @@ class ProductController extends Controller
                             break;
                         default:
                     }
-                    $productVariant = ProductVariant::create([
-                        'id_product' => $object->id,
-                        'id_product_type' => $request->idProductType,
-                        'id_color' => $colorVariant['id'],
-                        'id_clothing_size' => $idClothing,
-                        'id_shoe_size' => $idShoe,
-                        'stock' => $sizeVariant['stock'],
-                        'date' => Carbon::now()
 
-                    ]);
+                    if($request->idClothingSizeType == 1) {
+                        $productVariant = ProductVariant::create([
+                            'id_product' => $object->id,
+                            'id_product_type' => $request->idProductType,
+                            'id_clothing_size_type' => $request->idClothingSizeType,
+                            'id_color' => $colorVariant['id'],
+                            'id_clothing_size' => $idClothing,
+                            'id_clothing_number_size' => null,
+                            'id_shoe_size' => $idShoe,
+                            'stock' => $sizeVariant['stock'],
+                            'date' => Carbon::now()
+                        ]);
+                    } else {
+                        $productVariant = ProductVariant::create([
+                            'id_product' => $object->id,
+                            'id_product_type' => $request->idProductType,
+                            'id_clothing_size_type' => $request->idClothingSizeType,
+                            'id_color' => $colorVariant['id'],
+                            'id_clothing_size' => null,
+                            'id_clothing_number_size' => $idClothing,
+                            'id_shoe_size' => $idShoe,
+                            'stock' => $sizeVariant['stock'],
+                            'date' => Carbon::now()
+                        ]);
+                    }
+
                 }
             } else {
                 $productVariant = ProductVariant::create([
@@ -213,6 +230,7 @@ class ProductController extends Controller
                     'id_product_type' => $request->idProductType,
                     'id_color' => $colorVariant['id'],
                     'id_clothing_size' => null,
+                    'id_clothing_number_size' => null,
                     'id_shoe_size' => null,
                     'stock' => $colorVariant['stock'],
                     'date' => Carbon::now()
