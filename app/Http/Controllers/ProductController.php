@@ -112,7 +112,7 @@ class ProductController extends Controller
 
             switch ($idProductType) {
                 case 0:
-                    if($productVariants['id_clothing_size_type'] == 1) {
+                    if($productVariant['id_clothing_size_type'] == 1) {
                         if (isset($clothingSizes[$productVariant['id_clothing_size']])) {
                             $sizeVariants[$j]['id'] = $productVariant['id_clothing_size'];
                             $sizeVariants[$j]['descSize'] = $this->getDescSize($clothingSizes,$productVariant['id_clothing_size'] );
