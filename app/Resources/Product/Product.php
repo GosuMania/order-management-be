@@ -18,6 +18,7 @@ class Product extends JsonResource
             'id' => $this->id,
             'idProvider' => $this->id_provider,
             'descProvider' => $this->desc_provider,
+            'idClothingSizeType' => $this->id_clothing_size_type,
             'idProductType' => $this->id_product_type,
             'descProductType' => $this->desc_product_type,
             'image' => $this->immagine,
