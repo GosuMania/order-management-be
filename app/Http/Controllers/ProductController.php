@@ -97,13 +97,11 @@ class ProductController extends Controller
         foreach ($productVariants as $productVariant) {
             if ($i == -1) {
                 $i = $i + 1;
-                $colorVariants[$i]['idProductVariant'] = $productVariant['id'];
                 $colorVariants[$i]['id'] = $productVariant['id_color'];
                 $colorVariants[$i]['descColor'] = $this->getDescColor($colors,$productVariant['id_color']);
             } else if ($colorVariants[$i]['id'] != $productVariant['id_color']) {
                 $colorVariants[$i]['sizeVariants'] = $sizeVariants;
                 $i = $i + 1;
-                $colorVariants[$i]['idProductVariant'] = $productVariant['id'];
                 $colorVariants[$i]['id'] = $productVariant['id_color'];
                 $colorVariants[$i]['descColor'] = $this->getDescColor($colors,$productVariant['id_color']);
                 $sizeVariants = []; // inizialitto di nuovo array sizeVariants
@@ -139,6 +137,7 @@ class ProductController extends Controller
                     }
                     break;
                 default:
+                    $colorVariants[$i]['idProductVariant'] = $productVariant['id'];
                     $colorVariants[$i]['stock'] = $productVariant['stock'];
             }
         }
