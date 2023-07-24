@@ -82,7 +82,7 @@ class OrderController extends Controller
 
     public function createOrUpdate(Request $request)
     {
-        $object = Order::updateOrCreate(
+        $objectOrder = Order::updateOrCreate(
             ['id' => $request->id],
             [
                 'id_user' => $request->idUser,
@@ -109,7 +109,7 @@ class OrderController extends Controller
                     foreach ($colorVariant['sizeVariants'] as $sizeVariant) {
                         $objectOrderProduct = OrderProduct::create(
                             [
-                                'id_order' => $object['id'],
+                                'id_order' => $objectOrder->id,
                                 'id_product' => $product['id'],
                                 'id_product_variant' => $sizeVariant['id'],
                                 'quantity' => $sizeVariant['stock'],
@@ -120,7 +120,7 @@ class OrderController extends Controller
                 } else {
                     $objectOrderProduct = OrderProduct::create(
                         [
-                            'id_order' => $object['id'],
+                            'id_order' => $objectOrder->id,
                             'id_product' => $product['id'],
                             'id_product_variant' => $colorVariant['id'],
                             'quantity' => $colorVariant['stock'],
@@ -131,9 +131,8 @@ class OrderController extends Controller
             }
 
         }
-        $id = $object['id'];
         $object = $request;
-        $object['id'] = $id;
+        $object['id'] = $objectOrder->id;
         return response()->json(['data' => new OrderResource($object)], 200);
     }
 
