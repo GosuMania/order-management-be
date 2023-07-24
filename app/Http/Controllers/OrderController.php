@@ -104,7 +104,7 @@ class OrderController extends Controller
         );
         OrderProduct::where('id_product', $request->id)->delete();
         foreach ($request->productList as $product) {
-            foreach ($product->colorVariants as $colorVariant) {
+            foreach ($product['colorVariants'] as $colorVariant) {
                 if (count($colorVariant['sizeVariants']) > 0) {
                     foreach ($colorVariant['sizeVariants'] as $sizeVariant) {
                         $objectOrderProduct = OrderProduct::create(
