@@ -6,6 +6,7 @@ use App\Models\Order;
 use App\Models\OrderProduct;
 use App\Resources\Order\Order as OrderResource;
 use App\Resources\Order\OrderProduct as OrderProductResource;
+use Carbon\Carbon;
 
 use Illuminate\Http\Request;
 
@@ -84,14 +85,20 @@ class OrderController extends Controller
         $object = Order::updateOrCreate(
             ['id' => $request->id],
             [
-                'id_provider' => $request->idProvider,
-                'desc_provider' => $request->descProvider,
-                'id_product_type' => $request->idProductType,
-                'desc_product_type' => $request->descProductType,
-                'immagine' => $request->image,
-                'codice_articolo' => $request->productCode,
-                'descrizione_articolo' => $request->productDesc,
-                'prezzo' => $request->price,
+                'id_user' => $request->idUser,
+                'desc_user' => $request->descUser,
+                'id_customer' => $request->idCustomer,
+                'desc_customer' => $request->descCustomer,
+                'id_order_type' => $request->idOrderType,
+                'desc_order_type' => $request->descOrderType,
+                'id_payment_methods' => $request->idPaymentMethods,
+                'desc_payment_methods' => $request->descPaymentMethods,
+                'id_season' => $request->idSeason,
+                'desc_season' => $request->descSeason,
+                'id_delivery ' => $request->idDelivery ,
+                'desc_delivery' => $request->descDelivery,
+                'total_amount' => $request->totalAmount,
+                'total_pieces' => $request->totalPieces,
                 'date' => Carbon::now()
             ]
         );
