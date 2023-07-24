@@ -110,9 +110,9 @@ class OrderController extends Controller
                         $objectOrderProduct = OrderProduct::create(
                             [
                                 'id_order' => $object->id,
-                                'id_product' => $product->id,
-                                'id_product_variant' => $sizeVariant->id,
-                                'quantity' => $sizeVariant->stock,
+                                'id_product' => $product['id'],
+                                'id_product_variant' => $sizeVariant['id'],
+                                'quantity' => $sizeVariant['stock'],
                                 'date' => Carbon::now()
                             ]
                         );
@@ -121,9 +121,9 @@ class OrderController extends Controller
                     $objectOrderProduct = OrderProduct::create(
                         [
                             'id_order' => $object->id,
-                            'id_product' => $product->id,
-                            'id_product_variant' => $colorVariant->id,
-                            'quantity' => $colorVariant->stock,
+                            'id_product' => $product['id'],
+                            'id_product_variant' => $colorVariant['id'],
+                            'quantity' => $colorVariant['stock'],
                             'date' => Carbon::now()
                         ]
                     );
