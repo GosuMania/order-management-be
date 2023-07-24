@@ -95,7 +95,7 @@ class OrderController extends Controller
                 'desc_payment_methods' => $request->descPaymentMethods,
                 'id_season' => $request->idSeason,
                 'desc_season' => $request->descSeason,
-                'id_delivery ' => $request->idDelivery,
+                'id_delivery' => $request->idDelivery,
                 'desc_delivery' => $request->descDelivery,
                 'total_amount' => $request->totalAmount,
                 'total_pieces' => $request->totalPieces,
