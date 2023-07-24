@@ -111,7 +111,7 @@ class OrderController extends Controller
                             [
                                 'id_order' => $objectOrder->id,
                                 'id_product' => $product['id'],
-                                'id_product_variant' => $sizeVariant['id'],
+                                'id_product_variant' => $sizeVariant['idProductVariant'],
                                 'quantity' => $sizeVariant['stock'],
                                 'date' => Carbon::now()
                             ]
@@ -122,7 +122,7 @@ class OrderController extends Controller
                         [
                             'id_order' => $objectOrder->id,
                             'id_product' => $product['id'],
-                            'id_product_variant' => $colorVariant['id'],
+                            'id_product_variant' => $colorVariant['idProductVariant'],
                             'quantity' => $colorVariant['stock'],
                             'date' => Carbon::now()
                         ]
