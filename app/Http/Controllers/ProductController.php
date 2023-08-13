@@ -178,6 +178,7 @@ class ProductController extends Controller
                 'id_provider' => $request->idProvider,
                 'desc_provider' => $request->descProvider,
                 'id_product_type' => $request->idProductType,
+                'id_clothing_size_type' => $request->idClothingSizeType,
                 'desc_product_type'=> $request->descProductType,
                 'immagine' => $request->image,
                 'codice_articolo' => $request->productCode,
