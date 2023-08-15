@@ -49,7 +49,7 @@ class OrderController extends Controller
     {
         $order = Order::findOrFail($id);
         $order['product_list'] = $this->getProductListByIdProduct($id);
-        return new OrderResource($order);
+        return $order;
     }
 
     public function getProductListByIdProduct($id)
