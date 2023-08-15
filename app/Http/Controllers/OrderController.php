@@ -75,7 +75,7 @@ class OrderController extends Controller
         $clothingNumberSizes = ClothingNumberSize::orderBy('id', 'ASC')->get();
         $orderProductsNew = $this->groupAndMergeVariants($orderProducts, $providers, $productTypes, $colors, $showSizes, $clothingSizes, $clothingNumberSizes, $orderProductsNew);
 
-        return ProductOrderResource::collection($orderProducts);
+        return ProductOrderResource::collection($orderProductsNew);
         /*
         $orderProducts =
             OrderProduct::join('product_variants', 'product_variants.id', '=', 'order_products.id_product_variant')
