@@ -15,7 +15,7 @@ class ProductOrder extends JsonResource
     public function toArray($request)
     {
         return [
-            'id_product' => $this->id,
+            'id' => $this->id_product,
             'idProvider' => $this->id_provider,
             'descProvider' => $this->desc_provider,
             'idClothingSizeType' => $this->id_clothing_size_type,
