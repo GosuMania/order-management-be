@@ -73,7 +73,7 @@ class OrderController extends Controller
         $showSizes = ShoeSize::orderBy('id', 'ASC')->get();
         $clothingSizes = ClothingSize::orderBy('id', 'ASC')->get();
         $clothingNumberSizes = ClothingNumberSize::orderBy('id', 'ASC')->get();
-        $orderProductsNew = $this->groupAndMergeVariants($orderProducts, $providers, $productTypes, $colors, $showSizes, $clothingSizes, $clothingNumberSizes, $orderProductsNew);
+        $orderProductsNew = $this->groupAndMergeVariants($orderProducts, $providers, $productTypes, $colors, $showSizes, $clothingSizes, $clothingNumberSizes);
 
         return ProductOrderResource::collection($orderProductsNew);
         /*
@@ -86,7 +86,7 @@ class OrderController extends Controller
         */
     }
 
-    public function groupAndMergeVariants($inputArray, $providers, $productTypes, $colors, $showSizes, $clothingSizes, $clothingNumberSizes, $orderProductsNew)
+    public function groupAndMergeVariants($inputArray, $providers, $productTypes, $colors, $showSizes, $clothingSizes, $clothingNumberSizes)
     {
         $groupedArray = [];
 
