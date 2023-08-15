@@ -6,6 +6,8 @@ use App\Models\Order;
 use App\Models\OrderProduct;
 use App\Resources\Order\Order as OrderResource;
 use App\Resources\Order\OrderProduct as OrderProductResource;
+use App\Resources\Product\ProductOrder as ProductOrderResource;
+
 use Carbon\Carbon;
 
 use Illuminate\Http\Request;
@@ -58,7 +60,7 @@ class OrderController extends Controller
             ->join('products', 'products.id', '=', 'order_products.id_product')
             ->join('product_variants', 'product_variants.id', '=', 'order_products.id_product_variant')
             ->get();
-        return $orderProducts;
+        return ProductOrderResource::collection($orderProducts);
         /*
         $orderProducts =
             OrderProduct::join('product_variants', 'product_variants.id', '=', 'order_products.id_product_variant')
