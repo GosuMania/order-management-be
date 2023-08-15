@@ -49,12 +49,12 @@ class OrderController extends Controller
     {
         $order = Order::findOrFail($id);
         $order['product_list'] = $this->getProductListByIdProduct($id);
-        return $order;
+        return new OrderResource($order);
     }
 
     public function getProductListByIdProduct($id)
     {
-        $orderProducts = OrderProduct::where('order_products.id_product', $id)
+        $orderProducts = OrderProduct::where('order_products.id_order', $id)
             ->join('product_variants', 'product_variants.id', '=', 'order_products.id_product_variant')
             ->join('products', 'products.id', '=', 'order_products.id_product')
             ->get();
