@@ -54,12 +54,19 @@ class OrderController extends Controller
 
     public function getProductListByIdProduct($id)
     {
+        $orderProducts = OrderProduct::where('id_product', $id)
+            ->join('product_variants', 'product_variants.id', '=', 'order_products.id_product_variant')
+            ->join('products', 'products.id', '=', 'order_products.id_product')
+            ->get();
+        return $orderProducts;
+        /*
         $orderProducts =
             OrderProduct::join('product_variants', 'product_variants.id', '=', 'order_products.id_product_variant')
                 ->join('products', 'products.id', '=', 'order_products.id_product')
                 ->where('order_products.id_product', $id)->orderBy('order_products.id', 'ASC')
                 ->get();
         return OrderProductResource::collection($orderProducts);
+        */
     }
 
     public function getTotalPiecesAndAmounts()
