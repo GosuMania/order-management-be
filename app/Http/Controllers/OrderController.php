@@ -241,7 +241,7 @@ class OrderController extends Controller
             ]
         );
         if($request->id) {
-            OrderProduct::where('id_product', $request->id)->delete();
+            OrderProduct::where('id_order', $request->id)->delete();
         }
         foreach ($request->productList as $product) {
             foreach ($product['colorVariants'] as $colorVariant) {
