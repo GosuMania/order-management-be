@@ -240,7 +240,9 @@ class OrderController extends Controller
                 'date' => Carbon::now()
             ]
         );
-        OrderProduct::where('id_product', $request->id)->delete();
+        if($request->id) {
+            OrderProduct::where('id_product', $request->id)->delete();
+        }
         foreach ($request->productList as $product) {
             foreach ($product['colorVariants'] as $colorVariant) {
                 if (count($colorVariant['sizeVariants']) > 0) {
