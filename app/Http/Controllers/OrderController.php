@@ -14,6 +14,7 @@ use App\Models\ShoeSize;
 use App\Resources\Order\Order as OrderResource;
 use App\Resources\Order\OrderProduct as OrderProductResource;
 use App\Resources\Product\ProductOrder as ProductOrderResource;
+use Illuminate\Support\Facades\DB;
 
 use Carbon\Carbon;
 
@@ -220,6 +221,81 @@ class OrderController extends Controller
 
     public function createOrUpdate(Request $request)
     {
+        // Aggiorna o crea un nuovo ordine
+        $objectOrder = Order::updateOrCreate(
+            ['id' => $request->id],
+            [
+                'id_user' => $request->idUser,
+                'desc_user' => $request->descUser,
+                'id_customer' => $request->idCustomer,
+                'desc_customer' => $request->descCustomer,
+                'id_order_type' => $request->idOrderType,
+                'desc_order_type' => $request->descOrderType,
+                'id_payment_methods' => $request->idPaymentMethods,
+                'desc_payment_methods' => $request->descPaymentMethods,
+                'id_season' => $request->idSeason,
+                'desc_season' => $request->descSeason,
+                'id_delivery' => $request->idDelivery,
+                'desc_delivery' => $request->descDelivery,
+                'total_amount' => $request->totalAmount,
+                'total_pieces' => $request->totalPieces,
+                'date' => Carbon::now()
+            ]
+        );
+
+        // Se l'ordine è stato aggiornato, elimina gli OrderProduct associati
+        if ($request->id) {
+            OrderProduct::where('id_order', $request->id)->delete();
+        }
+
+        // Itera attraverso i prodotti dell'ordine
+        foreach ($request->productList as $product) {
+            foreach ($product['colorVariants'] as $colorVariant) {
+                // Controlla se ci sono varianti di taglia per questo colore
+                if (count($colorVariant['sizeVariants']) > 0) {
+                    foreach ($colorVariant['sizeVariants'] as $sizeVariant) {
+                        // Crea un nuovo oggetto OrderProduct
+                        $objectOrderProduct = OrderProduct::create([
+                            'id_order' => $objectOrder->id,
+                            'id_product' => $product['id'],
+                            'id_product_variant' => $sizeVariant['idProductVariant'],
+                            'quantity' => $sizeVariant['stockOrder'],
+                            'date' => Carbon::now()
+                        ]);
+
+                        // Decremento stock
+                        ProductVariant::where('id', $objectOrderProduct->id_product_variant)
+                            ->decrement('stock', $objectOrderProduct->quantity);
+                    }
+                } else {
+                    // Crea un nuovo oggetto OrderProduct senza varianti di taglia
+                    $objectOrderProduct = OrderProduct::create([
+                        'id_order' => $objectOrder->id,
+                        'id_product' => $product['id'],
+                        'id_product_variant' => $colorVariant['idProductVariant'],
+                        'quantity' => $colorVariant['stockOrder'],
+                        'date' => Carbon::now()
+                    ]);
+
+                    // Decremento stock
+                    ProductVariant::where('id', $objectOrderProduct->id_product_variant)
+                        ->decrement('stock', $objectOrderProduct->quantity);
+                }
+            }
+        }
+
+        // Costruisci l'oggetto di risposta
+        $object = $request;
+        $object['id'] = $objectOrder->id;
+
+        // Ritorna la risposta JSON
+        return response()->json(['data' => new OrderResource($object)], 200);
+    }
+
+
+    /*
+    public function createOrUpdate(Request $request)
+    {
         $objectOrder = Order::updateOrCreate(
             ['id' => $request->id],
             [
@@ -256,6 +332,13 @@ class OrderController extends Controller
                                 'date' => Carbon::now()
                             ]
                         );
+                        $productVariant = ProductVariant::find($objectOrderProduct->id_product_variant);
+                        if($productVariant) {
+                            $currentStock = $productVariant->stock;
+                            $newStockValue = $currentStock - $objectOrderProduct->quantity;
+                            $productVariant->update(['stock' => $newStockValue]);
+                        }
+
                     }
                 } else {
                     $objectOrderProduct = OrderProduct::create(
@@ -267,6 +350,12 @@ class OrderController extends Controller
                             'date' => Carbon::now()
                         ]
                     );
+                    $productVariant = ProductVariant::find($objectOrderProduct->id_product_variant);
+                    if($productVariant) {
+                        $currentStock = $productVariant->stock;
+                        $newStockValue = $currentStock - $objectOrderProduct->quantity;
+                        $productVariant->update(['stock' => $newStockValue]);
+                    }
                 }
             }
 
@@ -275,10 +364,35 @@ class OrderController extends Controller
         $object['id'] = $objectOrder->id;
         return response()->json(['data' => new OrderResource($object)], 200);
     }
-
-    public function delete($id)
+    */
+    public function delete(Request $request)
     {
-        $product = Order::where('id', $id)->first();
-        return $product->delete();
+        $order = Order::findOrFail($request->id); // Find the order by ID
+
+        // Loop through the productList and update the stock accordingly
+        foreach ($request->productList as $product) {
+
+            // Determine which product variants to update based on idProductType
+            if ($product['idProductType'] === 0 || $product['idProductType'] === 2) {
+                // If idProductType is 0 or 2, update size variant stock
+                foreach ($product['colorVariants'] as $colorVariant) {
+                    foreach ($colorVariant['sizeVariants'] as $sizeVariant) {
+                        ProductVariant::where('id', $sizeVariant['idProductVariant'])
+                            ->increment('stock', $sizeVariant['stockOrder']);
+                    }
+                }
+            } elseif ($product['idProductType'] === 1 || $product['idProductType'] === 3) {
+                // If idProductType is 1 or 3, update color variant stock
+                foreach ($product['colorVariants'] as $colorVariant) {
+                    ProductVariant::where('id', $colorVariant['idProductVariant'])
+                        ->increment('stock', $colorVariant['stockOrder']);
+                }
+            }
+        }
+
+        // Delete the order
+        $order->delete();
+
+        return response()->json(['message' => 'Order deleted successfully'], 200);
     }
 }
