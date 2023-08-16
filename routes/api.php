@@ -127,7 +127,7 @@ Route::controller(OrderController::class)->prefix('order')->group(function () {
     Route::get('get-all', 'getAll'); // restituisce la lista
     Route::post('create-or-update', 'createOrUpdate'); // crea o modifica
     Route::get('get-by-id/{id}', 'getById'); // restituisce una specifica
-    Route::delete('delete/{id}', 'delete'); // elimina
+    Route::post('delete', 'delete'); // elimina
     Route::get('get-all-with-pagination/{orderBy}/{ascDesc}/{perPage}/{page}', 'getAllWithPagination');
     Route::get('get-all-with-pagination-search/{word}/{orderBy}/{ascDesc}/{perPage}/{page}', 'getAllWithPaginationSearch');
     Route::get('get-total-pieces-and-amounts', 'getTotalPiecesAndAmounts'); // restituisce una specifica
