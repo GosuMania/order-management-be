@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('desc_delivery');
             $table->double('total_pieces');
             $table->integer('total_amount');
+            $table->string('status')->default('pending'); //pending - confirm
             $table->dateTime('date');
         });
         Schema::table('orders', function ($table) {

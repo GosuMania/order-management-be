@@ -31,6 +31,7 @@ class OrderDetail extends JsonResource
             'totalPieces' => $this->total_price,
             'totalAmount' => $this->total_amount,
             'date' => $this->date,
+            'status' => $this->status,
             'productList' => $this->product_list
         ];
     }

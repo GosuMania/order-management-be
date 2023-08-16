@@ -35,6 +35,7 @@ class OrderPagination extends JsonResource
                 'descDelivery' => $this->desc_delivery,
                 'totalPieces' => $this->total_price,
                 'totalAmount' => $this->total_amount,
+                'status' => $this->status,
                 'date' => $this->date
             ],
         ];

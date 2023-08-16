@@ -26,6 +26,7 @@ class Order extends Model
         'desc_delivery',
         'total_pieces',
         'total_amount',
+        'status',
         'date',
     ];
 }

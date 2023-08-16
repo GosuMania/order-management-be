@@ -32,7 +32,7 @@ class Order extends JsonResource
             'totalPieces' => $this->total_pieces,
             'totalAmount' => $this->total_amount,
             'productList' => $this->product_list,
-
+            'status' => $this->status,
             // 'productList' => ProductResource::collection($this->product_list),
             'date' => $this->date,
         ];
