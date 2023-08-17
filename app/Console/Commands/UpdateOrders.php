@@ -34,6 +34,6 @@ class UpdateOrders extends Command
         Log::info("Run Update Finished Orders");
         $expiredOrders = Order::whereDate('date', '<', Carbon::now()->subDays((7)))->where('status', 'pending');
         Log::info("End Update Status Orders with " . $expiredOrders->count() . " status orders");
-        return $expiredOrders->update(['status' => true]);
+        return $expiredOrders->update(['status' => 'confirmed']);
     }
 }
