@@ -12,6 +12,7 @@ use App\Models\ProductVariant;
 use App\Models\Provider;
 use App\Models\ShoeSize;
 use App\Resources\Order\Order as OrderResource;
+use App\Resources\Order\OrderPDF as OrderPDFResource;
 use App\Resources\Order\OrderProduct as OrderProductResource;
 use App\Resources\Product\ProductOrder as ProductOrderResource;
 use Illuminate\Support\Facades\DB;
@@ -53,6 +54,14 @@ class OrderController extends Controller
             ->orWhere('desc_season', 'LIKE', "%$word%")
             ->orderBy($orderBy, $ascDesc)->paginate($perPage, ['*'], 'page', $page);
         return OrderResource::collection($obj);
+    }
+    public function getByIdToPDF($id)
+    {
+        $order = Order::where('orders.id', $id)
+        ->join('customers', 'customers.id', '=', 'orders.id_customer')
+        ->get();
+        $order['product_list'] = $this->getProductListByIdProduct($id);
+        return new OrderPDFResource($order);
     }
 
     public function getById($id)
@@ -172,7 +181,7 @@ class OrderController extends Controller
                 default:
                     $colorVariants[$i]['idProductVariant'] = $productVariant['id'];
                     $colorVariants[$i]['stock'] = $productVariant['stock'];
-                    $colorVariants[$j]['stockOrder'] = $productVariant['quantity'];
+                    $colorVariants[$i]['stockOrder'] = $productVariant['quantity'];
             }
         }
         if (count($colorVariants) > 0) {
