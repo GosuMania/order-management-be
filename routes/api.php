@@ -77,6 +77,7 @@ Route::controller(ProviderController::class)->prefix('provider')->group(function
     Route::get('get-by-id/{id}', 'getById'); // restituisce una specifica
     Route::delete('delete/{id}', 'delete'); // elimina
     Route::get('get-all-with-pagination/{orderBy}/{ascDesc}/{perPage}/{page}', 'getAllWithPagination');
+    Route::get('get-all-with-pagination-search/{word}/{orderBy}/{ascDesc}/{perPage}/{page}', 'getAllWithPaginationSearch');
 });
 
 Route::controller(ProductTypeController::class)->prefix('product-type')->group(function () {

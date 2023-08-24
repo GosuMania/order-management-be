@@ -12,6 +12,18 @@ class Provider extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'ragione_sociale'
+        'ragione_sociale',
+        'partiva_iva',
+        'codice_fiscale',
+        'codice_sdi',
+        'pec',
+        'indirizzo',
+        'cap',
+        'localita',
+        'provincia',
+        'paese',
+        'telefono',
+        'email',
+        'date'
     ];
 }
