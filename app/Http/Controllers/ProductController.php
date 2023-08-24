@@ -73,18 +73,22 @@ class ProductController extends Controller
 
     public function getDescProviderById($id, $array)
     {
-        if (isset($array[$id])) {
-            return $array[$id]['ragione_sociale'];
+        foreach ($array as $obj) {
+            if ($obj['id'] === $id) {
+                return $obj['ragione_sociale'];
+            }
         }
-        return $id;
+        return ''; // Se non viene trovato nessun oggetto con l'ID corrispondente
     }
 
     public function getDescProductTypeById($id, $array)
     {
-        if (isset($array[$id])) {
-            return $array[$id]['desc'];
+        foreach ($array as $obj) {
+            if ($obj['id'] === $id) {
+                return $obj['desc'];
+            }
         }
-        return false;
+        return ''; // Se non viene trovato nessun oggetto con l'ID corrispondente
     }
 
     public function getColorVariants($id, $idProductType, $colors, $showSizes, $clothingSizes, $clothingNumberSizes)
