@@ -76,7 +76,7 @@ class ProductController extends Controller
         if (isset($array[$id])) {
             return $array[$id]['ragione_sociale'];
         }
-        return false;
+        return $id;
     }
 
     public function getDescProductTypeById($id, $array)
