@@ -34,7 +34,7 @@ Route::group([
 });
 
 Route::controller(AuthController::class)->prefix('noauth')->group(function () {
-    Route::post('reset-password', 'resetPassword'); // restituisce la lista
+    Route::post('reset-password', 'resetPassword');
 });
 
 Route::controller(CustomerController::class)->prefix('customer')->group(function () {
