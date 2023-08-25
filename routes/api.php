@@ -31,6 +31,7 @@ Route::group([
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::get('user-profile', [AuthController::class, 'userProfile']);
     Route::get('get-all', [AuthController::class, 'getAll']);
+    Route::post('reset-password', [AuthController::class, 'resetPassword']);
 });
 
 Route::controller(CustomerController::class)->prefix('customer')->group(function () {

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Validator;
 use App\User;
 use App\Resources\User\User as UserResource;
+use Illuminate\Support\Facades\Password;
 
 
 class AuthController extends Controller {
@@ -120,6 +121,30 @@ class AuthController extends Controller {
             'expires_in' => auth('api')->factory()->getTTL() * 60,
             'user' => auth()->user()
         ]);
+    }
+
+    /**
+     * Reset the user's password.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function resetPassword(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+
+        $status = Password::sendResetLink($request->only('email'));
+
+        if ($status === Password::RESET_LINK_SENT) {
+            return response()->json(['message' => 'Reset link sent to your email']);
+        } else {
+            return response()->json(['error' => 'Unable to send reset link'], 500);
+        }
     }
 
 }
