@@ -31,9 +31,9 @@ Route::group([
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::get('user-profile', [AuthController::class, 'userProfile']);
     Route::get('get-all', [AuthController::class, 'getAll']);
-});
+    Route::get('reset-password', [AuthController::class, 'resetPassword']);
 
-Route::post('noauth/reset-password', [AuthController::class, 'resetPassword'])->middleware(null);
+});
 
 Route::controller(CustomerController::class)->prefix('customer')->group(function () {
     Route::get('get-all', 'getAll'); // restituisce la lista
