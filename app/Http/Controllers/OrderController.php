@@ -218,17 +218,16 @@ class OrderController extends Controller
     public function getBase64Image($imageUrl)
     {
         if (!$imageUrl) {
-            return response()->json(['error' => 'Image URL is required'], 400);
+            return null;
         }
 
         try {
             $imageContents = file_get_contents($imageUrl);
             $base64Image = base64_encode($imageContents);
 
-            return response()->json(['base64_image' => $base64Image], 200);
+            return $base64Image;
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Failed to load image'], 500);
-
+            return null;
         }
     }
             public function getTotalPiecesAndAmounts()
