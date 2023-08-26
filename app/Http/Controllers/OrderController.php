@@ -67,7 +67,7 @@ class OrderController extends Controller
     public function getById($id)
     {
         $order = Order::findOrFail($id);
-        $order['product_list'] = $this->getProductListByIdProduct($id, false);
+        $order['product_list'] = $this->getProductListByIdProduct($id, true);
         return new OrderResource($order);
     }
 
