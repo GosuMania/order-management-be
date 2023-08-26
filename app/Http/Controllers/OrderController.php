@@ -41,9 +41,9 @@ class OrderController extends Controller
      */
     public function getAllWithPagination($orderBy, $ascDesc, $perPage, $page)
     {
-        $user = Auth::user();
+        $user = auth()->user();
         return $user;
-        if($user->type === 'ADMIN') {
+        if ($user->type === 'ADMIN') {
             $obj = Order::orderBy($orderBy, $ascDesc)->paginate($perPage, ['*'], 'page', $page);
         } else {
             $obj = Order::where('id_user', $user->id)->orderBy($orderBy, $ascDesc)->paginate($perPage, ['*'], 'page', $page);
@@ -53,9 +53,9 @@ class OrderController extends Controller
 
     public function getAllWithPaginationSearch($word, $orderBy, $ascDesc, $perPage, $page)
     {
-        $user = Auth::user();
+        $user = auth()->user();
         return $user;
-        if($user->type === 'ADMIN') {
+        if ($user->type === 'ADMIN') {
             $obj = Order::where('id', 'LIKE', "%$word%")
                 ->orWhere('desc_user', 'LIKE', "%$word%")
                 ->orWhere('desc_customer', 'LIKE', "%$word%")
