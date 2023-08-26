@@ -131,7 +131,7 @@ Route::controller(OrderController::class)->prefix('order')->group(function () {
     Route::post('create-or-update', 'createOrUpdate'); // crea o modifica
     Route::get('get-by-id/{id}', 'getById'); // restituisce una specifica
     Route::post('delete', 'delete'); // elimina
-    Route::get('get-all-with-pagination/{orderBy}/{ascDesc}/{perPage}/{page}', 'getAllWithPagination');
+    Route::get('get-all-with-pagination/{orderBy}/{ascDesc}/{perPage}/{page}', 'getAllWithPagination')->middleware('auth:api');;
     Route::get('get-all-with-pagination-search/{word}/{orderBy}/{ascDesc}/{perPage}/{page}', 'getAllWithPaginationSearch');
     Route::get('get-total-pieces-and-amounts', 'getTotalPiecesAndAmounts'); // restituisce una specifica
 });
