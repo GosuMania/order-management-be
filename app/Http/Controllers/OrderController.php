@@ -299,7 +299,7 @@ class OrderController extends Controller
                 foreach ($orderProducts as $product) {
                     ProductVariant::where('id', $product->id_product_variant)->increment('stock', $product->quantity);
                 }
-                $orderProducts->delete();
+                $orderProducts->each->delete();
             }
         }
 
