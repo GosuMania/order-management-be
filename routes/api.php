@@ -127,13 +127,13 @@ Route::controller(SeasonController::class)->prefix('season')->group(function () 
 });
 
 Route::controller(OrderController::class)->prefix('order')->group(function () {
-    Route::get('get-all', 'getAll'); // restituisce la lista
-    Route::post('create-or-update', 'createOrUpdate'); // crea o modifica
-    Route::get('get-by-id/{id}', 'getById'); // restituisce una specifica
-    Route::post('delete', 'delete'); // elimina
-    Route::get('get-all-with-pagination/{orderBy}/{ascDesc}/{perPage}/{page}', 'getAllWithPagination')->middleware('auth:api');;
-    Route::get('get-all-with-pagination-search/{word}/{orderBy}/{ascDesc}/{perPage}/{page}', 'getAllWithPaginationSearch');
-    Route::get('get-total-pieces-and-amounts', 'getTotalPiecesAndAmounts'); // restituisce una specifica
+    Route::get('get-all', 'getAll')->middleware('auth:api'); // restituisce la lista
+    Route::post('create-or-update', 'createOrUpdate')->middleware('auth:api'); // crea o modifica
+    Route::get('get-by-id/{id}', 'getById')->middleware('auth:api'); // restituisce una specifica
+    Route::post('delete', 'delete')->middleware('auth:api'); // elimina
+    Route::get('get-all-with-pagination/{orderBy}/{ascDesc}/{perPage}/{page}', 'getAllWithPagination')->middleware('auth:api');
+    Route::get('get-all-with-pagination-search/{word}/{orderBy}/{ascDesc}/{perPage}/{page}', 'getAllWithPaginationSearch')->middleware('auth:api');
+    Route::get('get-total-pieces-and-amounts', 'getTotalPiecesAndAmounts')->middleware('auth:api'); // restituisce una specifica
 });
 
 Route::controller(OrderProductController::class)->prefix('order-product')->group(function () {
