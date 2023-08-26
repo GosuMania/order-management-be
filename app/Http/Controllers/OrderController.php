@@ -294,7 +294,11 @@ class OrderController extends Controller
 
         // Se l'ordine è stato aggiornato, elimina gli OrderProduct associati
         if ($request->id) {
-            OrderProduct::where('id_order', $request->id)->delete();
+            $orderProducts = OrderProduct::where('id_order', $request->id);
+            foreach ($orderProducts as $product) {
+                ProductVariant::where('id', $product['id_product_variant'])->increment('stock', $product['quantity']);
+            }
+            $orderProducts->delete();
         }
 
         // Itera attraverso i prodotti dell'ordine
