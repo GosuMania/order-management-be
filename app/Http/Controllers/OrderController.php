@@ -16,6 +16,7 @@ use App\Resources\Order\OrderPDF as OrderPDFResource;
 use App\Resources\Order\OrderProduct as OrderProductResource;
 use App\Resources\Product\ProductOrder as ProductOrderResource;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 use Carbon\Carbon;
 
@@ -40,19 +41,36 @@ class OrderController extends Controller
      */
     public function getAllWithPagination($orderBy, $ascDesc, $perPage, $page)
     {
-        $obj = Order::orderBy($orderBy, $ascDesc)->paginate($perPage, ['*'], 'page', $page);
+        $user = Auth::user();
+        if($user->type === 'ADMIN') {
+            $obj = Order::orderBy($orderBy, $ascDesc)->paginate($perPage, ['*'], 'page', $page);
+        } else {
+            $obj = Order::where('id_user', $user->id)->orderBy($orderBy, $ascDesc)->paginate($perPage, ['*'], 'page', $page);
+        }
         return OrderResource::collection($obj);
     }
 
     public function getAllWithPaginationSearch($word, $orderBy, $ascDesc, $perPage, $page)
     {
-        $obj = Order::where('id', 'LIKE', "%$word%")
-            ->orWhere('desc_user', 'LIKE', "%$word%")
-            ->orWhere('desc_customer', 'LIKE', "%$word%")
-            ->orWhere('date', 'LIKE', "%$word%")
-            ->orWhere('desc_delivery', 'LIKE', "%$word%")
-            ->orWhere('desc_season', 'LIKE', "%$word%")
-            ->orderBy($orderBy, $ascDesc)->paginate($perPage, ['*'], 'page', $page);
+        $user = Auth::user();
+        if($user->type === 'ADMIN') {
+            $obj = Order::where('id', 'LIKE', "%$word%")
+                ->orWhere('desc_user', 'LIKE', "%$word%")
+                ->orWhere('desc_customer', 'LIKE', "%$word%")
+                ->orWhere('date', 'LIKE', "%$word%")
+                ->orWhere('desc_delivery', 'LIKE', "%$word%")
+                ->orWhere('desc_season', 'LIKE', "%$word%")
+                ->orderBy($orderBy, $ascDesc)->paginate($perPage, ['*'], 'page', $page);
+        } else {
+            $obj = Order::where('id_user', $user->id)
+                ->where('id', 'LIKE', "%$word%")
+                ->orWhere('desc_user', 'LIKE', "%$word%")
+                ->orWhere('desc_customer', 'LIKE', "%$word%")
+                ->orWhere('date', 'LIKE', "%$word%")
+                ->orWhere('desc_delivery', 'LIKE', "%$word%")
+                ->orWhere('desc_season', 'LIKE', "%$word%")
+                ->orderBy($orderBy, $ascDesc)->paginate($perPage, ['*'], 'page', $page);
+        }
         return OrderResource::collection($obj);
     }
 
