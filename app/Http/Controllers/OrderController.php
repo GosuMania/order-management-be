@@ -60,18 +60,18 @@ class OrderController extends Controller
         $order = Order::where('orders.id', $id)
         ->join('customers', 'customers.id', '=', 'orders.id_customer')
         ->get();
-        $order['product_list'] = $this->getProductListByIdProduct($id);
+        $order['product_list'] = $this->getProductListByIdProduct($id, true);
         return new OrderPDFResource($order);
     }
 
     public function getById($id)
     {
         $order = Order::findOrFail($id);
-        $order['product_list'] = $this->getProductListByIdProduct($id);
+        $order['product_list'] = $this->getProductListByIdProduct($id, false);
         return new OrderResource($order);
     }
 
-    public function getProductListByIdProduct($id)
+    public function getProductListByIdProduct($id, $isPdf)
     {
         $orderProducts = OrderProduct::where('order_products.id_order', $id)
             ->join('products', 'products.id', '=', 'order_products.id_product')
@@ -83,9 +83,14 @@ class OrderController extends Controller
         $showSizes = ShoeSize::orderBy('id', 'ASC')->get();
         $clothingSizes = ClothingSize::orderBy('id', 'ASC')->get();
         $clothingNumberSizes = ClothingNumberSize::orderBy('id', 'ASC')->get();
-        $orderProductsNew = $this->groupAndMergeVariants($orderProducts, $providers, $productTypes, $colors, $showSizes, $clothingSizes, $clothingNumberSizes);
+        $orderProductsNews = $this->groupAndMergeVariants($orderProducts, $providers, $productTypes, $colors, $showSizes, $clothingSizes, $clothingNumberSizes);
 
-        return ProductOrderResource::collection($orderProductsNew);
+        if($isPdf) {
+            foreach ($orderProductsNews as $orderProductsNew) {
+                $orderProductsNew['base64_image'] = $this->getBase64Image($orderProductsNew['image']);
+            }
+        }
+        return ProductOrderResource::collection($orderProductsNews);
         /*
         $orderProducts =
             OrderProduct::join('product_variants', 'product_variants.id', '=', 'order_products.id_product_variant')
@@ -210,7 +215,23 @@ class OrderController extends Controller
         return '';
     }
 
-    public function getTotalPiecesAndAmounts()
+    public function getBase64Image($imageUrl)
+    {
+        if (!$imageUrl) {
+            return response()->json(['error' => 'Image URL is required'], 400);
+        }
+
+        try {
+            $imageContents = file_get_contents($imageUrl);
+            $base64Image = base64_encode($imageContents);
+
+            return response()->json(['base64_image' => $base64Image], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to load image'], 500);
+
+        }
+    }
+            public function getTotalPiecesAndAmounts()
     {
         $orders = Order::select(
             'total_pieces',

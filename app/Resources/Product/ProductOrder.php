@@ -22,6 +22,7 @@ class ProductOrder extends JsonResource
             'idProductType' => $this->id_product_type,
             'descProductType' => $this->desc_product_type,
             'image' => $this->immagine,
+            'base64Image' => $this->base64_image,
             'productCode' => $this->codice_articolo,
             'productDesc' => $this->descrizione_articolo,
             'price' => $this->prezzo,
