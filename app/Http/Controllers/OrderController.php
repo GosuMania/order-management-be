@@ -55,11 +55,12 @@ class OrderController extends Controller
             ->orderBy($orderBy, $ascDesc)->paginate($perPage, ['*'], 'page', $page);
         return OrderResource::collection($obj);
     }
+
     public function getByIdToPDF($id)
     {
         $order = Order::where('orders.id', $id)
-        ->join('customers', 'customers.id', '=', 'orders.id_customer')
-        ->get();
+            ->join('customers', 'customers.id', '=', 'orders.id_customer')
+            ->get();
         $order['product_list'] = $this->getProductListByIdProduct($id, true);
         return new OrderPDFResource($order);
     }
@@ -85,7 +86,7 @@ class OrderController extends Controller
         $clothingNumberSizes = ClothingNumberSize::orderBy('id', 'ASC')->get();
         $orderProductsNews = $this->groupAndMergeVariants($orderProducts, $providers, $productTypes, $colors, $showSizes, $clothingSizes, $clothingNumberSizes);
 
-        if($isPdf) {
+        if ($isPdf) {
             foreach ($orderProductsNews as $orderProductsNew) {
                 $orderProductsNew['base64_image'] = $this->getBase64Image($orderProductsNew['immagine']);
             }
@@ -230,7 +231,8 @@ class OrderController extends Controller
             return null;
         }
     }
-            public function getTotalPiecesAndAmounts()
+
+    public function getTotalPiecesAndAmounts()
     {
         $orders = Order::select(
             'total_pieces',
