@@ -34,7 +34,7 @@ class ColorController extends Controller
         $object = Color::updateOrCreate(
             ['id' => $request->id],
             [
-                'colore' => $request->ragioneSociale,
+                'colore' => $request->colore,
                 'codice' => $request->codice,
             ]
         );
