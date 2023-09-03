@@ -105,6 +105,7 @@ class OrderController extends Controller
         if ($isPdf) {
             foreach ($orderProductsNews as $orderProductsNew) {
                 $orderProductsNew['base64_image'] = $this->getBase64Image($orderProductsNew['immagine']);
+                $orderProductsNew['image'] = env('APP_URL').'/images/no_image_aviable.webp';
             }
         }
         return ProductOrderResource::collection($orderProductsNews);
