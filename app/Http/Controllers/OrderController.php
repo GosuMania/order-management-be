@@ -15,6 +15,7 @@ use App\Resources\Order\Order as OrderResource;
 use App\Resources\Order\OrderPDF as OrderPDFResource;
 use App\Resources\Product\ProductOrder as ProductOrderResource;
 use Illuminate\Support\Facades\Auth;
+use Imagick;
 
 use Carbon\Carbon;
 
@@ -105,7 +106,7 @@ class OrderController extends Controller
         if ($isPdf) {
             foreach ($orderProductsNews as $orderProductsNew) {
                 $orderProductsNew['base64_image'] = $this->getBase64Image($orderProductsNew['immagine']);
-                $orderProductsNew['immagine'] = env('APP_URL').'/images/no_image_aviable.webp';
+                // $orderProductsNew['immagine'] = env('APP_URL').'/images/no_image_aviable.webp';
             }
         }
         return ProductOrderResource::collection($orderProductsNews);
@@ -232,8 +233,26 @@ class OrderController extends Controller
         }
 
         try {
-            $imageContents = file_get_contents($imageUrl);
-            $base64Image = base64_encode($imageContents);
+            $extension = pathinfo($imageUrl, PATHINFO_EXTENSION);
+
+            // Verifica se l'estensione del file è WebP
+            if ($extension === 'webp') {
+                // Scarica l'immagine
+                $imageContents = file_get_contents($imageUrl);
+
+                // Converti l'immagine da WebP a PNG utilizzando la libreria Imagick
+                $imagick = new Imagick();
+                $imagick->readImageBlob($imageContents);
+                $imagick->setImageFormat('png');
+
+                // Ottieni il contenuto dell'immagine convertita in PNG
+                $pngImageContents = $imagick->getImageBlob();
+                $base64Image = base64_encode($pngImageContents);
+            } else {
+                // Se l'estensione non è WebP, scarica semplicemente l'immagine
+                $imageContents = file_get_contents($imageUrl);
+                $base64Image = base64_encode($imageContents);
+            }
 
             return $base64Image;
         } catch (\Exception $e) {
