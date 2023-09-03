@@ -13,9 +13,7 @@ use App\Models\Provider;
 use App\Models\ShoeSize;
 use App\Resources\Order\Order as OrderResource;
 use App\Resources\Order\OrderPDF as OrderPDFResource;
-use App\Resources\Order\OrderProduct as OrderProductResource;
 use App\Resources\Product\ProductOrder as ProductOrderResource;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 use Carbon\Carbon;
@@ -110,14 +108,6 @@ class OrderController extends Controller
             }
         }
         return ProductOrderResource::collection($orderProductsNews);
-        /*
-        $orderProducts =
-            OrderProduct::join('product_variants', 'product_variants.id', '=', 'order_products.id_product_variant')
-                ->join('products', 'products.id', '=', 'order_products.id_product')
-                ->where('order_products.id_product', $id)->orderBy('order_products.id', 'ASC')
-                ->get();
-        return OrderProductResource::collection($orderProducts);
-        */
     }
 
     public function groupAndMergeVariants($inputArray, $providers, $productTypes, $colors, $showSizes, $clothingSizes, $clothingNumberSizes)
@@ -237,7 +227,7 @@ class OrderController extends Controller
     public function getBase64Image($imageUrl)
     {
         if (!$imageUrl) {
-            return null;
+            $imageUrl = env('APP_URL').'/images/no_image_aviable.webp';
         }
 
         try {
@@ -347,79 +337,6 @@ class OrderController extends Controller
         return response()->json(['data' => new OrderResource($object)], 200);
     }
 
-
-    /*
-    public function createOrUpdate(Request $request)
-    {
-        $objectOrder = Order::updateOrCreate(
-            ['id' => $request->id],
-            [
-                'id_user' => $request->idUser,
-                'desc_user' => $request->descUser,
-                'id_customer' => $request->idCustomer,
-                'desc_customer' => $request->descCustomer,
-                'id_order_type' => $request->idOrderType,
-                'desc_order_type' => $request->descOrderType,
-                'id_payment_methods' => $request->idPaymentMethods,
-                'desc_payment_methods' => $request->descPaymentMethods,
-                'id_season' => $request->idSeason,
-                'desc_season' => $request->descSeason,
-                'id_delivery' => $request->idDelivery,
-                'desc_delivery' => $request->descDelivery,
-                'total_amount' => $request->totalAmount,
-                'total_pieces' => $request->totalPieces,
-                'date' => Carbon::now()
-            ]
-        );
-        if($request->id) {
-            OrderProduct::where('id_order', $request->id)->delete();
-        }
-        foreach ($request->productList as $product) {
-            foreach ($product['colorVariants'] as $colorVariant) {
-                if (count($colorVariant['sizeVariants']) > 0) {
-                    foreach ($colorVariant['sizeVariants'] as $sizeVariant) {
-                        $objectOrderProduct = OrderProduct::create(
-                            [
-                                'id_order' => $objectOrder->id,
-                                'id_product' => $product['id'],
-                                'id_product_variant' => $sizeVariant['idProductVariant'],
-                                'quantity' => $sizeVariant['stockOrder'],
-                                'date' => Carbon::now()
-                            ]
-                        );
-                        $productVariant = ProductVariant::find($objectOrderProduct->id_product_variant);
-                        if($productVariant) {
-                            $currentStock = $productVariant->stock;
-                            $newStockValue = $currentStock - $objectOrderProduct->quantity;
-                            $productVariant->update(['stock' => $newStockValue]);
-                        }
-
-                    }
-                } else {
-                    $objectOrderProduct = OrderProduct::create(
-                        [
-                            'id_order' => $objectOrder->id,
-                            'id_product' => $product['id'],
-                            'id_product_variant' => $colorVariant['idProductVariant'],
-                            'quantity' => $colorVariant['stockOrder'],
-                            'date' => Carbon::now()
-                        ]
-                    );
-                    $productVariant = ProductVariant::find($objectOrderProduct->id_product_variant);
-                    if($productVariant) {
-                        $currentStock = $productVariant->stock;
-                        $newStockValue = $currentStock - $objectOrderProduct->quantity;
-                        $productVariant->update(['stock' => $newStockValue]);
-                    }
-                }
-            }
-
-        }
-        $object = $request;
-        $object['id'] = $objectOrder->id;
-        return response()->json(['data' => new OrderResource($object)], 200);
-    }
-    */
     public function delete(Request $request)
     {
         $order = Order::findOrFail($request->id); // Find the order by ID
