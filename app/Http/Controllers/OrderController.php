@@ -44,7 +44,7 @@ class OrderController extends Controller
                 ->orWhere('orders.date', 'LIKE', "%$word%")
                 ->orWhere('orders.desc_delivery', 'LIKE', "%$word%")
                 ->join('order_products', 'order_products.id_order', '=', 'orders.id')
-                ->join('products', 'products.id_order', '=', 'order_products.id_product')
+                ->join('products', 'products.id', '=', 'order_products.id_product')
                 ->join('product_variants', 'product_variants.id_product', '=', 'products.id')
                 ->where('products.id_provider', $idProvider)
                 ->orderBy($orderBy, $ascDesc)->paginate($perPage, ['*'], 'page', $page);
