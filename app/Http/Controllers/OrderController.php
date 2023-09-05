@@ -49,7 +49,7 @@ class OrderController extends Controller
                     ->orWhere('orders.desc_customer', 'LIKE', "%$word%")
                     ->orWhere('orders.date', 'LIKE', "%$word%")
                     ->orWhere('orders.desc_delivery', 'LIKE', "%$word%");
-            });
+            })->pluck('id');
 
         $obj = Order::whereIn('orders.id', $distinctOrderIds)
             ->orderBy('orders.'.$orderBy, $ascDesc)
