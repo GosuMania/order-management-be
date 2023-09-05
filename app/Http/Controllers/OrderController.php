@@ -37,19 +37,30 @@ class OrderController extends Controller
     public function getAllWithPaginationSearchFilterProvider($word, $orderBy, $ascDesc, $perPage, $page, $idProvider, $idSeason)
     {
         $user = Auth::user();
-        $distinctOrderIds = Order::select('orders.id')
-            ->where('id_season', $idSeason)
-            ->join('order_products', 'order_products.id_order', '=', 'orders.id')
-            ->join('products', 'products.id', '=', 'order_products.id_product')
-            ->join('product_variants', 'product_variants.id_product', '=', 'products.id')
-            ->where('products.id_provider', $idProvider)
-            ->where(function($query) use ($word) {
-                $query->orWhere('orders.id', 'LIKE', "%$word%")
-                    ->orWhere('orders.desc_user', 'LIKE', "%$word%")
-                    ->orWhere('orders.desc_customer', 'LIKE', "%$word%")
-                    ->orWhere('orders.date', 'LIKE', "%$word%")
-                    ->orWhere('orders.desc_delivery', 'LIKE', "%$word%");
-            })->pluck('orders.id');
+        if($word && $word !== 'null') {
+            $distinctOrderIds = Order::select('orders.id')
+                ->where('id_season', $idSeason)
+                ->join('order_products', 'order_products.id_order', '=', 'orders.id')
+                ->join('products', 'products.id', '=', 'order_products.id_product')
+                ->join('product_variants', 'product_variants.id_product', '=', 'products.id')
+                ->where('products.id_provider', $idProvider)
+                ->where(function($query) use ($word) {
+                    $query->orWhere('orders.id', 'LIKE', "%$word%")
+                        ->orWhere('orders.desc_user', 'LIKE', "%$word%")
+                        ->orWhere('orders.desc_customer', 'LIKE', "%$word%")
+                        ->orWhere('orders.date', 'LIKE', "%$word%")
+                        ->orWhere('orders.desc_delivery', 'LIKE', "%$word%");
+                })->pluck('orders.id');
+        } else {
+            $distinctOrderIds = Order::select('orders.id')
+                ->where('id_season', $idSeason)
+                ->join('order_products', 'order_products.id_order', '=', 'orders.id')
+                ->join('products', 'products.id', '=', 'order_products.id_product')
+                ->join('product_variants', 'product_variants.id_product', '=', 'products.id')
+                ->where('products.id_provider', $idProvider)
+                ->pluck('orders.id');
+        }
+
 
         $obj = Order::whereIn('orders.id', $distinctOrderIds)
             ->orderBy('orders.'.$orderBy, $ascDesc)
