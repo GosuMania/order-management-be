@@ -37,7 +37,7 @@ class OrderController extends Controller
     public function getAllWithPaginationSearchFilterProvider($word, $orderBy, $ascDesc, $perPage, $page, $idProvider, $idSeason)
     {
         $user = Auth::user();
-        $obj = Order::select('orders.id', 'orders.id_user', 'orders.desc_user', 'orders.id_customer', 'orders.codice_sdi', 'orders.desc_customer', 'orders.id_order_type', 'orders.desc_order_type', 'orders.id_payment_methods', 'orders.desc_payment_methods', 'orders.id_season', 'orders.desc_season', 'orders.id_delivery', 'orders.desc_delivery', 'orders.total_pieces', 'orders.total_amount', 'orders.product_list', 'orders.status', 'orders.date')
+        $obj = Order::select('orders.id', 'orders.id_user', 'orders.desc_user', 'orders.id_customer', 'orders.desc_customer', 'orders.id_order_type', 'orders.desc_order_type', 'orders.id_payment_methods', 'orders.desc_payment_methods', 'orders.id_season', 'orders.desc_season', 'orders.id_delivery', 'orders.desc_delivery', 'orders.total_pieces', 'orders.total_amount', 'orders.status', 'orders.date')
             ->where('orders.id_season', $idSeason)
             ->join('order_products', 'order_products.id_order', '=', 'orders.id')
             ->join('products', 'products.id', '=', 'order_products.id_product')
