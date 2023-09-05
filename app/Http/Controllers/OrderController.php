@@ -33,6 +33,38 @@ class OrderController extends Controller
         return OrderResource::collection(Order::orderBy('id', 'ASC')->get());
     }
 
+    public function getAllWithPaginationSearchFilterProvider($word, $orderBy, $ascDesc, $perPage, $page, $idProvider, $idSeason)
+    {
+        $user = Auth::user();
+        if ($user->type === 'ADMIN') {
+            $obj = Order::where('order.id_season', $idSeason)
+                ->where('order.id', 'LIKE', "%$word%")
+                ->orWhere('order.desc_user', 'LIKE', "%$word%")
+                ->orWhere('order.desc_customer', 'LIKE', "%$word%")
+                ->orWhere('order.date', 'LIKE', "%$word%")
+                ->orWhere('order.desc_delivery', 'LIKE', "%$word%")
+                ->join('order_products', 'order_products.id_order', '=', 'order.id')
+                ->join('products', 'products.id_order', '=', 'order_products.id_product')
+                ->join('product_variants', 'product_variants.id_product', '=', 'products.id')
+                ->where('products.id_provider', $idProvider)
+                ->orderBy($orderBy, $ascDesc)->paginate($perPage, ['*'], 'page', $page);
+        } else {
+            $obj = Order::where('id_user', $user->id)
+                ->where('order.id_season', $idSeason)
+                ->where('order.id', 'LIKE', "%$word%")
+                ->orWhere('order.desc_user', 'LIKE', "%$word%")
+                ->orWhere('order.desc_customer', 'LIKE', "%$word%")
+                ->orWhere('order.date', 'LIKE', "%$word%")
+                ->orWhere('order.desc_delivery', 'LIKE', "%$word%")
+                ->join('order_products', 'order_products.id_order', '=', 'order.id')
+                ->join('products', 'products.id_order', '=', 'order_products.id_product')
+                ->join('product_variants', 'product_variants.id_product', '=', 'products.id')
+                ->where('products.id_provider', $idProvider)
+                ->orderBy($orderBy, $ascDesc)->paginate($perPage, ['*'], 'page', $page);
+        }
+        return OrderResource::collection($obj);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -229,7 +261,7 @@ class OrderController extends Controller
     public function getBase64Image($imageUrl)
     {
         if (!$imageUrl) {
-            $imageUrl = env('APP_URL').'/images/no_image_aviable.webp';
+            $imageUrl = env('APP_URL') . '/images/no_image_aviable.webp';
         }
 
         try {
