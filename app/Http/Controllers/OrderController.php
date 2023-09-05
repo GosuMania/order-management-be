@@ -51,7 +51,7 @@ class OrderController extends Controller
                     ->orWhere('orders.desc_delivery', 'LIKE', "%$word%");
             });
 
-        $obj = Order::whereIn('id', $distinctOrderIds)
+        $obj = Order::whereIn('orders.id', $distinctOrderIds)
             ->orderBy('orders.'.$orderBy, $ascDesc)
             ->paginate($perPage, ['*'], 'page', $page);
         return OrderProviderResource::collection($obj);
