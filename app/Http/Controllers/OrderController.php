@@ -37,7 +37,7 @@ class OrderController extends Controller
     public function getAllWithPaginationSearchFilterProvider($word, $orderBy, $ascDesc, $perPage, $page, $idProvider, $idSeason)
     {
         $user = Auth::user();
-        $distinctOrderIds = Order::select('id')
+        $distinctOrderIds = Order::select('orders.id')
             ->where('id_season', $idSeason)
             ->join('order_products', 'order_products.id_order', '=', 'orders.id')
             ->join('products', 'products.id', '=', 'order_products.id_product')
@@ -49,7 +49,7 @@ class OrderController extends Controller
                     ->orWhere('orders.desc_customer', 'LIKE', "%$word%")
                     ->orWhere('orders.date', 'LIKE', "%$word%")
                     ->orWhere('orders.desc_delivery', 'LIKE', "%$word%");
-            })->pluck('id');
+            })->pluck('orders.id');
 
         $obj = Order::whereIn('orders.id', $distinctOrderIds)
             ->orderBy('orders.'.$orderBy, $ascDesc)
