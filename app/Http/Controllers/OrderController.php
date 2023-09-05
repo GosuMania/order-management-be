@@ -36,35 +36,13 @@ class OrderController extends Controller
     public function getAllWithPaginationSearchFilterProvider($word, $orderBy, $ascDesc, $perPage, $page, $idProvider, $idSeason)
     {
         $user = Auth::user();
-        if ($user->type === 'ADMIN') {
-            $obj = Order::where('orders.id_season', $idSeason)
-                ->join('order_products', 'order_products.id_order', '=', 'orders.id')
-                ->join('products', 'products.id', '=', 'order_products.id_product')
-                ->join('product_variants', 'product_variants.id_product', '=', 'products.id')
-                ->where('products.id_provider', $idProvider)
-                ->where(function($query) use ($word) {
-                    $query->orWhere('orders.id', 'LIKE', "%$word%")
-                        ->orWhere('orders.desc_user', 'LIKE', "%$word%")
-                        ->orWhere('orders.desc_customer', 'LIKE', "%$word%")
-                        ->orWhere('orders.date', 'LIKE', "%$word%")
-                        ->orWhere('orders.desc_delivery', 'LIKE', "%$word%");
-                })
-                ->orderBy('orders.'.$orderBy, $ascDesc)
-                ->paginate($perPage, ['*'], 'page', $page);
-        } else {
-            $obj = Order::where('orders.id_user', $user->id)
-                ->where('orders.id_season', $idSeason)
-                ->where('orders.id', 'LIKE', "%$word%")
-                ->orWhere('orders.desc_user', 'LIKE', "%$word%")
-                ->orWhere('orders.desc_customer', 'LIKE', "%$word%")
-                ->orWhere('orders.date', 'LIKE', "%$word%")
-                ->orWhere('orders.desc_delivery', 'LIKE', "%$word%")
-                ->join('order_products', 'order_products.id_order', '=', 'orders.id')
-                ->join('products', 'products.id', '=', 'order_products.id_product')
-                ->join('product_variants', 'product_variants.id_product', '=', 'products.id')
-                ->where('products.id_provider', $idProvider)
-                ->orderBy('orders.'.$orderBy, $ascDesc)->paginate($perPage, ['*'], 'page', $page);
-        }
+        $obj = Order::where('orders.id_season', $idSeason)
+            ->join('order_products', 'order_products.id_order', '=', 'orders.id')
+            ->join('products', 'products.id', '=', 'order_products.id_product')
+            ->join('product_variants', 'product_variants.id_product', '=', 'products.id')
+            ->where('products.id_provider', $idProvider)
+            ->orderBy('orders.' . $orderBy, $ascDesc)
+            ->paginate($perPage, ['*'], 'page', $page);
         return OrderResource::collection($obj);
     }
 
