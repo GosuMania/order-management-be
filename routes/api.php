@@ -136,9 +136,9 @@ Route::controller(OrderController::class)->prefix('order')->group(function () {
     Route::post('create-or-update', 'createOrUpdate')->middleware('auth:api'); // crea o modifica
     Route::get('get-by-id/{id}', 'getById')->middleware('auth:api'); // restituisce una specifica
     Route::post('delete', 'delete')->middleware('auth:api'); // elimina
-    Route::get('get-all-with-pagination-search-provider/{word}/{orderBy}/{ascDesc}/{perPage}/{page}/{idProvider}/{idSeason}', 'getAllWithPaginationSearchFilterProvider')->middleware('auth:api');
     Route::get('get-all-with-pagination/{orderBy}/{ascDesc}/{perPage}/{page}', 'getAllWithPagination')->middleware('auth:api');
     Route::get('get-all-with-pagination-search/{word}/{orderBy}/{ascDesc}/{perPage}/{page}', 'getAllWithPaginationSearch')->middleware('auth:api');
+    Route::get('get-all-with-pagination-search-provider/{word}/{orderBy}/{ascDesc}/{perPage}/{page}/{idProvider}/{idSeason}', 'getAllWithPaginationSearchFilterProvider')->middleware('auth:api');
     Route::get('get-total-pieces-and-amounts', 'getTotalPiecesAndAmounts')->middleware('auth:api'); // restituisce una specifica
 });
 
