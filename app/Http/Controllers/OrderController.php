@@ -47,7 +47,7 @@ class OrderController extends Controller
                 ->join('products', 'products.id', '=', 'order_products.id_product')
                 ->join('product_variants', 'product_variants.id_product', '=', 'products.id')
                 ->where('products.id_provider', $idProvider)
-                ->orderBy($orderBy, $ascDesc)->paginate($perPage, ['*'], 'page', $page);
+                ->orderBy('orders.'.$orderBy, $ascDesc)->paginate($perPage, ['*'], 'page', $page);
         } else {
             $obj = Order::where('orders.id_user', $user->id)
                 ->where('orders.id_season', $idSeason)
