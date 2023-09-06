@@ -69,13 +69,13 @@ class OrderController extends Controller
     {
         $user = Auth::user();
         $orders = Order::where('id_season', $idSeason)
-            ->join('order_products', 'order_products.id_order', '=', 'orders.id')
-            ->join('products', 'products.id', '=', 'order_products.id_product')
-            ->where('products.id_provider', $idProvider)
-            ->join('product_variants', 'product_variants.id_product', '=', 'products.id')
-            ->select('orders.*', 'products.*', 'product_variants.*')
-            ->distinct()
-            ->orderBy('orders.id', 'ASC')->get();
+            ->whereHas('products', function ($query) use ($idProvider) {
+                $query->where('id_provider', $idProvider);
+            })
+            ->with(['products.variants']) // Carica anche i dettagli dei prodotti e delle varianti
+            ->orderBy('id', 'ASC')
+            ->get();
+
         return response()->json(['data' => $orders], 200);
     }
 
