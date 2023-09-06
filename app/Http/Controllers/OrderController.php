@@ -73,7 +73,12 @@ class OrderController extends Controller
                 $query->where('id_provider', $idProvider);
             })
             ->with(['products.variants' => function ($query) {
-                $query->groupBy('id_product'); // Raggruppa le varianti per prodotto
+                $query->whereIn('id_product', function ($subquery) {
+                    $subquery->from('products')
+                        ->select('id')
+                        ->groupBy('id')
+                        ->get();
+                });
             }])
             ->orderBy('id', 'ASC')
             ->get();
