@@ -75,7 +75,7 @@ class OrderController extends Controller
             ->join('product_variants', 'product_variants.id_product', '=', 'products.id')
             ->select('orders.*', 'products.*', 'product_variants.*')
             ->orderBy('orders.id', 'ASC');
-        return $orders;
+        return response()->json($orders);
     }
 
     /**
