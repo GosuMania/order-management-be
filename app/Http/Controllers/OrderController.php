@@ -72,8 +72,8 @@ class OrderController extends Controller
             ->whereHas('products', function ($query) use ($idProvider) {
                 $query->where('id_provider', $idProvider);
             })
-            ->with(['products' => function ($query) {
-                $query->with('variants'); // Carica le varianti di ciascun prodotto
+            ->with(['products.variants' => function ($query) {
+                $query->groupBy('products.id'); // Raggruppa le varianti per prodotto
             }])
             ->orderBy('id', 'ASC')
             ->get();
