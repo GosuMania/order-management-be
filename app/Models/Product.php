@@ -24,11 +24,6 @@ class Product extends Model
         'date'
     ];
 
-    public function variants()
-    {
-        return $this->hasMany(ProductVariant::class, 'id_product', 'id');
-    }
-
     public function provider()
     {
         return $this->belongsTo(Provider::class, 'id_provider'); // appartiene a
