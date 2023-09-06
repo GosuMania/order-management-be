@@ -29,4 +29,9 @@ class Order extends Model
         'status',
         'date',
     ];
+
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'id_order', 'id');
+    }
 }
