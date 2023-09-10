@@ -73,7 +73,7 @@ class OrderController extends Controller
             ->whereHas('products', function ($query) use ($idProvider) {
                 $query->where('id_provider', $idProvider);
             })
-            ->orderBy('id', 'ASC')
+            ->orderBy('orders.id', 'ASC')
             ->get();
         $colors = Color::orderBy('id', 'ASC')->get();
         $showSizes = ShoeSize::orderBy('id', 'ASC')->get();
