@@ -100,7 +100,7 @@ class OrderController extends Controller
         $clothingSizes = ClothingSize::orderBy('id', 'ASC')->get();
         $clothingNumberSizes = ClothingNumberSize::orderBy('id', 'ASC')->get();
         foreach ($orders as $order) {
-            $order['product_list'] = $this->getProductListByIdOrderProvider($order->id, true, $colors, $showSizes, $clothingSizes, $clothingNumberSizes);
+            $order['product_list'] = $this->getProductListByIdOrderProvider($order->id, $idProvider, true, $colors, $showSizes, $clothingSizes, $clothingNumberSizes);
         }
         return OrderPDFResource::collection($orders);
     }
@@ -161,10 +161,13 @@ class OrderController extends Controller
         return new OrderResource($order);
     }
 
-    public function getProductListByIdOrderProvider($id, $isPdf, $colors, $showSizes, $clothingSizes, $clothingNumberSizes)
+    public function getProductListByIdOrderProvider($id, $idProvider, $isPdf, $colors, $showSizes, $clothingSizes, $clothingNumberSizes)
     {
         $orderProducts = OrderProduct::where('order_products.id_order', $id)
-            ->join('products', 'products.id', '=', 'order_products.id_product')
+            ->join('products', function ($join) {
+                $join->on('products.id', '=', 'order_products.id_product')
+                    ->where('products.id_provider', '=', $idProvider);
+            })
             ->join('product_variants', 'product_variants.id', '=', 'order_products.id_product_variant')
             ->get();
         $orderProductsNews = $this->groupAndMergeVariants($orderProducts, $colors, $showSizes, $clothingSizes, $clothingNumberSizes);
