@@ -65,7 +65,7 @@ class OrderController extends Controller
         return OrderProviderResource::collection($obj);
     }
 
-    public function getAllFilterProvider($idProvider, $idSeason)
+    public function getAllFilterProviderPDF($idProvider, $idSeason)
     {
         $user = Auth::user();
         $orders = Order::where('id_season', $idSeason)
@@ -80,7 +80,9 @@ class OrderController extends Controller
         $clothingSizes = ClothingSize::orderBy('id', 'ASC')->get();
         $clothingNumberSizes = ClothingNumberSize::orderBy('id', 'ASC')->get();
         foreach ($orders as $order) {
-            $order['product_list'] = $this->getProductListByIdOrderProvider($order['id'], true, $colors, $showSizes, $clothingSizes, $clothingNumberSizes);
+            // $order['product_list'] = $this->getProductListByIdOrderProvider($order->id, true, $colors, $showSizes, $clothingSizes, $clothingNumberSizes);
+            $order['product_list'] = $order->id;
+
         }
 
         return OrderPDFResource::collection($orders);
