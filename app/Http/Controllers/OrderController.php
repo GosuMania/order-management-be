@@ -81,8 +81,7 @@ class OrderController extends Controller
         $clothingNumberSizes = ClothingNumberSize::orderBy('id', 'ASC')->get();
         foreach ($orders as $order) {
             // $order['product_list'] = $this->getProductListByIdOrderProvider($order->id, true, $colors, $showSizes, $clothingSizes, $clothingNumberSizes);
-            $order['product_list'] = $order->id;
-
+            $order['product_list'] = $this->getProductListByIdOrder($order->id, true);
         }
 
         return OrderPDFResource::collection($orders);
@@ -151,7 +150,6 @@ class OrderController extends Controller
             ->join('product_variants', 'product_variants.id', '=', 'order_products.id_product_variant')
             ->get();
         $orderProductsNews = $this->groupAndMergeVariants($orderProducts, $colors, $showSizes, $clothingSizes, $clothingNumberSizes);
-
         if ($isPdf) {
             foreach ($orderProductsNews as $orderProductsNew) {
                 $orderProductsNew['base64_image'] = $this->getBase64Image($orderProductsNew['immagine']);
