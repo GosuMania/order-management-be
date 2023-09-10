@@ -164,7 +164,7 @@ class OrderController extends Controller
     public function getProductListByIdOrderProvider($id, $idProvider, $isPdf, $colors, $showSizes, $clothingSizes, $clothingNumberSizes)
     {
         $orderProducts = OrderProduct::where('order_products.id_order', $id)
-            ->join('products', function ($join) {
+            ->join('products', function ($join) use ($idProvider) {
                 $join->on('products.id', '=', 'order_products.id_product')
                     ->where('products.id_provider', '=', $idProvider);
             })
