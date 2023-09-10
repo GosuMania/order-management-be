@@ -68,22 +68,40 @@ class OrderController extends Controller
     public function getAllFilterProviderPDF($idProvider, $idSeason)
     {
         $user = Auth::user();
-        $orders = Order::where('id_season', $idSeason)
+        $orders = Order::select(
+            'orders.id',
+            'orders.id_user',
+            'orders.desc_user',
+            'orders.id_customer',
+            'customers.codice_sdi',
+            'customers.ragione_sociale',
+            'orders.id_order_type',
+            'orders.desc_order_type',
+            'orders.id_payment_methods',
+            'orders.desc_payment_methods',
+            'orders.id_season',
+            'orders.desc_season',
+            'orders.id_delivery',
+            'orders.desc_delivery',
+            'orders.total_pieces',
+            'orders.total_amount',
+            'orders.date'
+        )
             ->join('customers', 'customers.id', '=', 'orders.id_customer')
+            ->where('orders.id_season', $idSeason)
             ->whereHas('products', function ($query) use ($idProvider) {
                 $query->where('id_provider', $idProvider);
             })
             ->orderBy('orders.id', 'ASC')
             ->get();
+
         $colors = Color::orderBy('id', 'ASC')->get();
         $showSizes = ShoeSize::orderBy('id', 'ASC')->get();
         $clothingSizes = ClothingSize::orderBy('id', 'ASC')->get();
         $clothingNumberSizes = ClothingNumberSize::orderBy('id', 'ASC')->get();
         foreach ($orders as $order) {
-            // $order['product_list'] = $this->getProductListByIdOrderProvider($order->id, true, $colors, $showSizes, $clothingSizes, $clothingNumberSizes);
-            $order['product_list'] = $this->getProductListByIdOrder($order->id, true);
+            $order['product_list'] = $this->getProductListByIdOrderProvider($order->id, true, $colors, $showSizes, $clothingSizes, $clothingNumberSizes);
         }
-
         return OrderPDFResource::collection($orders);
     }
 
