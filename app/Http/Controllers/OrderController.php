@@ -80,7 +80,7 @@ class OrderController extends Controller
         $clothingSizes = ClothingSize::orderBy('id', 'ASC')->get();
         $clothingNumberSizes = ClothingNumberSize::orderBy('id', 'ASC')->get();
         foreach ($orders as $order) {
-            $order['product_list'] = $this->getProductListByIdOrderProvider($order->id, true, $colors, $showSizes, $clothingSizes, $clothingNumberSizes);
+            $order['product_list'] = $this->getProductListByIdOrderProvider($order['id'], true, $colors, $showSizes, $clothingSizes, $clothingNumberSizes);
         }
 
         return OrderPDFResource::collection($orders);
