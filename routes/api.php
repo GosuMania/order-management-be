@@ -71,7 +71,7 @@ Route::controller(ClothingNumberSizeController::class)->prefix('clothing-number-
     Route::get('get-all', 'getAll'); // restituisce la lista
 });
 
-Route::controller(ChildrenSizeController::class)->prefix('children-size')->group(function () {
+Route::controller(ChildrenSizeController::class)->prefix('clothing-children-size')->group(function () {
     Route::get('get-all', 'getAll'); // restituisce la lista
 });
 
