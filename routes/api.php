@@ -20,6 +20,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderProductController;
 use App\Http\Controllers\ClothingNumberSizeController;
 use App\Http\Controllers\ClothingSizeTypeController;
+use App\Http\Controllers\ChildrenSizeController;
 
 Route::group([
     'middleware' => 'api',
@@ -69,6 +70,11 @@ Route::controller(ClothingSizeController::class)->prefix('clothing-size')->group
 Route::controller(ClothingNumberSizeController::class)->prefix('clothing-number-size')->group(function () {
     Route::get('get-all', 'getAll'); // restituisce la lista
 });
+
+Route::controller(ChildrenSizeController::class)->prefix('children-size')->group(function () {
+    Route::get('get-all', 'getAll'); // restituisce la lista
+});
+
 
 Route::controller(ClothingSizeTypeController::class)->prefix('clothing-size-type')->group(function () {
     Route::get('get-all', 'getAll'); // restituisce la lista
