@@ -187,6 +187,7 @@ class ProductController extends Controller
                 'immagine' => $request->image,
                 'codice_articolo' => $request->productCode,
                 'descrizione_articolo' => $request->productDesc,
+                'barcode' => $request->barcode,
                 'prezzo' => $request->price,
                 'date' => Carbon::now()
             ]

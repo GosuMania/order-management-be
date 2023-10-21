@@ -20,6 +20,7 @@ class Product extends Model
         'immagine',
         'codice_articolo',
         'descrizione_articolo',
+        'barcode',
         'prezzo',
         'date'
     ];

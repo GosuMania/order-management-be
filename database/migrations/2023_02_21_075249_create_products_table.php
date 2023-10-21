@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('immagine')->nullable();
             $table->string('codice_articolo');
             $table->string('descrizione_articolo');
+            $table->string('barcode');
             $table->double('prezzo');
             $table->dateTime('date');
         });
