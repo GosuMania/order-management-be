@@ -65,7 +65,7 @@ class OrderController extends Controller
         return OrderProviderResource::collection($obj);
     }
 
-    public function getAllFilterProviderPDF($idProvider, $idSeason)
+    public function getAllFilterProviderXLSX($idProvider, $idSeason)
     {
         $user = Auth::user();
         $orders = Order::select(
