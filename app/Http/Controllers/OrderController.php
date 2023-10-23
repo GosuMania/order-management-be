@@ -352,6 +352,24 @@ class OrderController extends Controller
 
     }
 
+    public function getTotalPiecesAndAmountsProvider()
+    {
+        $orders = Order::select(
+            'total_pieces',
+            'total_amount'
+        )->get();
+        $totalPieces = 0;
+        $totalAmount = 0;
+        foreach ($orders as $obj) {
+            $totalPieces = $totalPieces + $obj['total_pieces'];
+            $totalAmount = $totalAmount + $obj['total_amount'];
+        }
+        $data['totalPieces'] = $totalPieces;
+        $data['totalAmount'] = $totalAmount;
+        return response()->json(["data" => $data], 200);
+
+    }
+
     public function createOrUpdate(Request $request)
     {
         // Aggiorna o crea un nuovo ordine

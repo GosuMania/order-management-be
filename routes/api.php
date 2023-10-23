@@ -146,7 +146,9 @@ Route::controller(OrderController::class)->prefix('order')->group(function () {
     Route::get('get-all-with-pagination-search/{word}/{orderBy}/{ascDesc}/{perPage}/{page}', 'getAllWithPaginationSearch')->middleware('auth:api');
     Route::get('get-all-with-pagination-search-provider/{word}/{orderBy}/{ascDesc}/{perPage}/{page}/{idProvider}/{idSeason}', 'getAllWithPaginationSearchFilterProvider')->middleware('auth:api');
     Route::get('get-total-pieces-and-amounts', 'getTotalPiecesAndAmounts')->middleware('auth:api'); // restituisce una specifica
+    Route::get('get-total-pieces-and-amounts-pdf', 'getTotalPiecesAndAmountsPDF')->middleware('auth:api'); // restituisce una specifica
     Route::get('get-all-filter-provider-xlsx/{idProvider}/{idSeason}', 'getAllFilterProviderXLSX')->middleware('auth:api'); // restituisce la lista
+    Route::get('get-total-pieces-and-amounts-provider', 'getTotalPiecesAndAmountsProvider')->middleware('auth:api'); // restituisce una specifica
 });
 
 Route::controller(OrderProductController::class)->prefix('order-product')->group(function () {
