@@ -34,8 +34,8 @@ class OrderProductController extends Controller
         $query = DB::table('order_products')
             ->select('products.id', 'products.id_provider', 'products.desc_provider', 'products.id_product_type', 'products.desc_product_type', 'products.id_clothing_size_type', 'products.immagine', 'products.codice_articolo', 'products.descrizione_articolo', 'products.barcode', 'products.prezzo', 'seasons.desc_season', DB::raw('SUM(order_products.quantity) as total_quantity'))
             ->join('products', 'order_products.id_product', '=', 'products.id')
-            ->join('orders', 'order_products.id_order', '=', 'orders.id')
-            ->join('seasons', 'orders.id_season', '=', 'seasons.id')
+            ->join('orders as o1', 'order_products.id_order', '=', 'o1.id')
+            ->join('seasons', 'o1.id_season', '=', 'seasons.id')
             ->groupBy('products.id', 'products.id_provider', 'products.desc_provider', 'products.id_product_type', 'products.desc_product_type', 'products.id_clothing_size_type', 'products.immagine', 'products.codice_articolo', 'products.descrizione_articolo', 'products.barcode', 'products.prezzo', 'seasons.desc_season')
             ->orderBy('total_quantity', $ascDesc);
 
@@ -44,9 +44,7 @@ class OrderProductController extends Controller
         }
 
         if (!empty($idSeason) && $idSeason != 'null') {
-            // Aggiungi il filtro per "id_season"
-            $query->join('orders', 'order_products.id_order', '=', 'orders.id')
-                ->where('orders.id_season', $idSeason);
+            $query->where('o1.id_season', $idSeason);
         }
 
         $results = $query->paginate($perPage, ['*'], 'page', $page);
