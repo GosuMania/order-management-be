@@ -26,6 +26,7 @@ class ProductStats extends JsonResource
             'productDesc' => $this->descrizione_articolo,
             'barcode' => $this->barcode,
             'price' => $this->prezzo,
+            'descSeasonType' => $this->desc_season_type,
             'totalQuantity' => $this->total_quantity,
             // 'colorVariants' => $this->color_variants,
             // 'date' => $this->date,
