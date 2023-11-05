@@ -32,11 +32,11 @@ class OrderProductController extends Controller
     public function getOrderProductStatsWithPaginationListSearch($ascDesc, $perPage, $page, $idSeason, $idProvider)
     {
         $query = DB::table('order_products')
-            ->select('products.id', 'products.id_provider', 'products.desc_provider', 'products.id_product_type', 'products.desc_product_type', 'products.id_clothing_size_type', 'products.immagine', 'products.codice_articolo', 'products.descrizione_articolo', 'products.barcode', 'products.prezzo', 'seasons.desc_season', DB::raw('SUM(order_products.quantity) as total_quantity'))
+            ->select('products.id', 'products.id_provider', 'products.desc_provider', 'products.id_product_type', 'products.desc_product_type', 'products.id_clothing_size_type', 'products.immagine', 'products.codice_articolo', 'products.descrizione_articolo', 'products.barcode', 'products.prezzo', 'seasons.desc_season_type', DB::raw('SUM(order_products.quantity) as total_quantity'))
             ->join('products', 'order_products.id_product', '=', 'products.id')
             ->join('orders as o1', 'order_products.id_order', '=', 'o1.id')
             ->join('seasons', 'o1.id_season', '=', 'seasons.id')
-            ->groupBy('products.id', 'products.id_provider', 'products.desc_provider', 'products.id_product_type', 'products.desc_product_type', 'products.id_clothing_size_type', 'products.immagine', 'products.codice_articolo', 'products.descrizione_articolo', 'products.barcode', 'products.prezzo', 'seasons.desc_season')
+            ->groupBy('products.id', 'products.id_provider', 'products.desc_provider', 'products.id_product_type', 'products.desc_product_type', 'products.id_clothing_size_type', 'products.immagine', 'products.codice_articolo', 'products.descrizione_articolo', 'products.barcode', 'products.prezzo', 'seasons.desc_season_type')
             ->orderBy('total_quantity', $ascDesc);
 
         if (!empty($idProvider) && $idProvider != 'null') {
