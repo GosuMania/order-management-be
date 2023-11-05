@@ -16,6 +16,7 @@ class OrderProduct extends Model
         'id_order',
         'id_product',
         'id_product_variant',
+        'id_season',
         'quantity'
     ];
 }

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->bigInteger('id_order')->unsigned();
             $table->bigInteger('id_product')->unsigned();
             $table->bigInteger('id_product_variant')->unsigned();
+            $table->bigInteger('id_season')->unsigned();
             $table->integer('quantity')->default(0);
         });
 
@@ -25,6 +26,7 @@ return new class extends Migration
             $table->foreign('id_order')->references('id')->on('orders')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('id_product')->references('id')->on('products')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('id_product_variant')->references('id')->on('product_variants')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('id_season')->references('id')->on('seasons')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
