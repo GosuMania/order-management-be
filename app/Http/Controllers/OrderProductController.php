@@ -17,7 +17,7 @@ class OrderProductController extends Controller
         $query = DB::table('order_products')
             ->select('products.*', DB::raw('SUM(order_products.quantity) as total_quantity'))
             ->join('products', 'order_products.id_product', '=', 'products.id')
-            ->groupBy('products.id')
+            ->groupBy('products.id', 'products.id_provider') // Aggiungi 'products.idProvider' a GROUP BY
             ->orderBy('total_quantity', 'desc');
 
         if (!empty($idProvider)) {
