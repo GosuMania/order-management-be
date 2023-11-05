@@ -29,6 +29,29 @@ class OrderProductController extends Controller
         return ProductStatsResource::collection($results);
         // return response()->json(["data" => $results], 200);
     }
+    public function getOrderProductStatsWithPaginationListSearch($ascDesc, $perPage, $page, $idSeason, $idProvider)
+    {
+        $query = DB::table('order_products')
+            ->select('products.id', 'products.id_provider', 'products.desc_provider', 'products.id_product_type', 'products.desc_product_type', 'products.id_clothing_size_type', 'products.immagine', 'products.codice_articolo', 'products.descrizione_articolo', 'products.barcode', 'products.prezzo', DB::raw('SUM(order_products.quantity) as total_quantity'))
+            ->join('products', 'order_products.id_product', '=', 'products.id')
+            ->groupBy('products.id', 'products.id_provider', 'products.desc_provider', 'products.id_product_type', 'products.desc_product_type', 'products.id_clothing_size_type', 'products.immagine', 'products.codice_articolo', 'products.descrizione_articolo', 'products.barcode', 'products.prezzo')
+            ->orderBy('total_quantity', $ascDesc);
+
+        if (!empty($idProvider) && $idProvider != 'null') {
+            $query->where('products.id_provider', $idProvider);
+        }
+
+        if (!empty($idSeason) && $idSeason != 'null') {
+            // Aggiungi il filtro per "id_season"
+            $query->join('orders', 'order_products.id_order', '=', 'orders.id')
+                ->where('orders.id_season', $idSeason);
+        }
+
+        $results = $query->paginate($perPage, ['*'], 'page', $page);
+
+        return ProductStatsResource::collection($results);
+    }
+
 
     /**
      * Show the form for creating a new resource.
