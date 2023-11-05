@@ -28,7 +28,7 @@ class ProductStats extends JsonResource
             'price' => $this->prezzo,
             'totalQuantity' => $this->total_quantity,
             // 'colorVariants' => $this->color_variants,
-            'date' => $this->date,
+            // 'date' => $this->date,
         ];
     }
 }
