@@ -152,7 +152,7 @@ Route::controller(OrderController::class)->prefix('order')->group(function () {
 });
 
 Route::controller(OrderProductController::class)->prefix('order-product')->group(function () {
-    Route::get('get-order-product-stats', 'getOrderProductStats');
+    Route::get('get-order-product-stats/{idProvider}', 'getOrderProductStats');
     Route::get('get-by-id-order', 'getByIdOrder'); // restituisce la lista
     Route::post('create-or-update', 'createOrUpdate'); // crea o modifica
     Route::get('get-by-id/{id}', 'getById'); // restituisce una specifica
