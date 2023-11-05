@@ -15,9 +15,9 @@ class OrderProductController extends Controller
     public function getOrderProductStats($idProvider)
     {
         $query = DB::table('order_products')
-            ->select('products.*', DB::raw('SUM(order_products.quantity) as total_quantity'))
+            ->select('products.id', 'products.id_provider', 'products.desc_provider', 'products.id_product_type', 'products.desc_product_type', 'products.id_clothing_size_type', 'products.immagine', 'products.codice_articolo', 'products.descrizione_articolo', 'products.barcode', 'products.prezzo', DB::raw('SUM(order_products.quantity) as total_quantity'))
             ->join('products', 'order_products.id_product', '=', 'products.id')
-            ->groupBy('products.id', 'products.id_provider') // Aggiungi 'products.idProvider' a GROUP BY
+            ->groupBy('products.id', 'products.id_provider', 'products.desc_provider', 'products.id_product_type', 'products.desc_product_type', 'products.id_clothing_size_type', 'products.immagine', 'products.codice_articolo', 'products.descrizione_articolo', 'products.barcode', 'products.prezzo')
             ->orderBy('total_quantity', 'desc');
 
         if (!empty($idProvider)) {
