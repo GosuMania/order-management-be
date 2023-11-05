@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\OrderProduct;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
 class OrderProductController extends Controller
 {
     /**
