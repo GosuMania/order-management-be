@@ -13,9 +13,21 @@ class OrderProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function getOrderProductStats($idProvider)
     {
-        //
+        $query = DB::table('order_products')
+            ->select('products.*', DB::raw('SUM(order_products.quantity) as total_quantity'))
+            ->join('products', 'order_products.idProduct', '=', 'products.id')
+            ->groupBy('products.id')
+            ->orderBy('total_quantity', 'desc');
+
+        if (!empty($idProvider)) {
+            $query->where('products.idProvider', $idProvider);
+        }
+
+        $results = $query->get();
+
+        return response()->json(["data" => $results], 200);
     }
 
     /**
