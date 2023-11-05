@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\OrderProduct;
+use App\Resources\Product\Product as ProductResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 class OrderProductController extends Controller
@@ -25,8 +26,8 @@ class OrderProductController extends Controller
         }
 
         $results = $query->get();
-
-        return response()->json(["data" => $results], 200);
+        return ProductResource::collection($results);
+        // return response()->json(["data" => $results], 200);
     }
 
     /**
