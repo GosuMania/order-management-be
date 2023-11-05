@@ -20,7 +20,7 @@ class OrderProductController extends Controller
             ->groupBy('products.id', 'products.id_provider', 'products.desc_provider', 'products.id_product_type', 'products.desc_product_type', 'products.id_clothing_size_type', 'products.immagine', 'products.codice_articolo', 'products.descrizione_articolo', 'products.barcode', 'products.prezzo')
             ->orderBy('total_quantity', 'desc');
 
-        if (!empty($idProvider)) {
+        if (!empty($idProvider) && $idProvider != 'null') {
             $query->where('products.id_provider', $idProvider);
         }
 
