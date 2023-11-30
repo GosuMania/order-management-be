@@ -54,6 +54,7 @@ class ProductController extends Controller
             ->orWhere('desc_product_type', 'LIKE', "%$word%")
             ->orWhere('codice_articolo', 'LIKE', "%$word%")
             ->orWhere('descrizione_articolo', 'LIKE', "%$word%")
+            ->orWhere('barcode', '=', "$word")
             ->orderBy($orderBy, $ascDesc)->paginate($perPage, ['*'], 'page', $page);
         $providers = Provider::orderBy('id', 'ASC')->get();
         $productTypes = ProductType::orderBy('id', 'ASC')->get();
