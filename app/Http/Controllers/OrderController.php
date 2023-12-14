@@ -39,7 +39,7 @@ class OrderController extends Controller
         $user = Auth::user();
         if ($word && $word !== 'null') {
             $distinctOrderIds = Order::select('orders.id')
-                ->where('id_season', $idSeason)
+                ->where('orders.id_season', $idSeason)
                 ->join('order_products', 'order_products.id_order', '=', 'orders.id')
                 ->join('products', 'products.id', '=', 'order_products.id_product')
                 ->where('products.id_provider', $idProvider)
@@ -52,7 +52,7 @@ class OrderController extends Controller
                 })->pluck('orders.id');
         } else {
             $distinctOrderIds = Order::select('orders.id')
-                ->where('id_season', $idSeason)
+                ->where('orders.id_season', $idSeason)
                 ->join('order_products', 'order_products.id_order', '=', 'orders.id')
                 ->join('products', 'products.id', '=', 'order_products.id_product')
                 ->where('products.id_provider', $idProvider)
